@@ -10,7 +10,7 @@
 </head>
 <body>
 	<%
-		Connection conn = new ConnectionFactory().createMySqlConnectionBuilder().getConnection();
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		Statement stmt = conn.createStatement();
 		/*
 		--------------+-------------+------+-----+---------+----------------+
