@@ -9,7 +9,7 @@ public class User {
 	private String userQQ = "";
 	private String userEmail = "";
 	private String userSchool = "";
-	private String userRole = "";
+	private Integer userRole = 0;
 	public Integer getUserId() {
 		return userId;
 	}
@@ -58,10 +58,10 @@ public class User {
 	public void setUserSchool(String userSchool) {
 		this.userSchool = userSchool;
 	}
-	public String getUserRole() {
+	public Integer getUserRole() {
 		return userRole;
 	}
-	public void setUserRole(String userRole) {
+	public void setUserRole(Integer userRole) {
 		this.userRole = userRole;
 	}
 }
