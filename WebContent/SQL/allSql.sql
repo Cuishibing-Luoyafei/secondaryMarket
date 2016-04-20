@@ -27,3 +27,5 @@ create table user (
 	userRole int default 1,
 	constraint unique(userNackName, userPassword)
 );
+
+create
