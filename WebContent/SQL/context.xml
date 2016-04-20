@@ -18,7 +18,7 @@
 <Context>
 
 	<Resource name="jdbc/MySQL" auth="Container" type="javax.sql.DataSource" maxTotal="100" maxidle="30" maxWaitMillis="10000" username="root"
-	password="root" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/secondarymarket"/>
+	password="root" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3305/secondarymarket"/>
 	
 
     <!-- Default set of monitored resources -->
