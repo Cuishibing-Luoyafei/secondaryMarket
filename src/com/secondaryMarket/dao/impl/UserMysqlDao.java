@@ -30,7 +30,7 @@ public class UserMysqlDao implements UserDao{
 				user.setUserPassword(rs.getString("userPassword"));
 				user.setUserQQ(rs.getString("userQQ"));
 				user.setUserRealName(rs.getString("userRealName"));
-				user.setUserRole(rs.getString("userRole"));
+				user.setUserRole(rs.getInt("userRole"));
 				user.setUserSchool(rs.getString("userSchool"));
 				user.setUserTel(rs.getString("userTel"));
 				return user;
@@ -42,32 +42,101 @@ public class UserMysqlDao implements UserDao{
 	}
 
 	@Override
-	public User getUserInName(String realName) {
-		return null;
+	public User getUserInName(String nackName) {
+		String sql = "select userId from user where userNackName=?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, nackName);
+			ResultSet rs = ps.executeQuery();
+			rs.last();
+			if(rs.getRow()<1){
+				return null;
+			}else{
+				rs.first();
+				Integer userId = rs.getInt("userId");
+				return getUserInId(userId);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public boolean deleteUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "delete from user where userId=?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, user.getUserId());
+			if(ps.executeUpdate()<1){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public boolean validateUserName(String realName) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean validateUserName(String nackName) {
+		if(getUserInName(nackName)==null){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	@Override
 	public boolean insertUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "insert into user(userNackName,userPassword,userRealName,userTel"
+				+ ",userQQ,userEmail,userSchool,userRole) values(?,?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, user.getUserNackName());
+			ps.setString(2, user.getUserPassword());
+			ps.setString(3, user.getUserRealName());
+			ps.setString(4, user.getUserTel());
+			ps.setString(5, user.getUserQQ());
+			ps.setString(6, user.getUserEmail());
+			ps.setString(7, user.getUserSchool());
+			ps.setInt(8, user.getUserRole());
+			if(ps.executeUpdate()<1){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean updateUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "update user set userNackName=?,userPassword=?,userRealName=?,"
+				+ "userTel=?,userQQ=?,userEmail=?,userSchool=?,userRole=?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, user.getUserNackName());
+			ps.setString(2, user.getUserPassword());
+			ps.setString(3, user.getUserRealName());
+			ps.setString(4, user.getUserTel());
+			ps.setString(5, user.getUserQQ());
+			ps.setString(6, user.getUserEmail());
+			ps.setString(7, user.getUserSchool());
+			ps.setInt(8, user.getUserRole());
+			ps.setInt(8, user.getUserRole());
+			if(ps.executeUpdate()<1){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 }
