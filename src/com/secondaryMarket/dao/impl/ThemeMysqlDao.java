@@ -17,10 +17,11 @@ public class ThemeMysqlDao implements ThemeDao{
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select * from theme where themeId=?";
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, themeId);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
 				return null;
@@ -40,6 +41,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return null;
 		}finally{
+			ConnectionFactory.closeResultSet(rs);
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
@@ -50,10 +52,11 @@ public class ThemeMysqlDao implements ThemeDao{
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select themeId from theme where themeTitle=?";
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, themeTitle);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
 				return null;
@@ -66,6 +69,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return null;
 		}finally{
+			ConnectionFactory.closeResultSet(rs);
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
@@ -76,11 +80,12 @@ public class ThemeMysqlDao implements ThemeDao{
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select themeId from theme where themeId limit ?,?";
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, start);
 			ps.setInt(2, size);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
 				return null;

@@ -15,10 +15,11 @@ public class UserMysqlDao implements UserDao{
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select * from user where userId=?";
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, userId);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
 				return null;
@@ -40,6 +41,7 @@ public class UserMysqlDao implements UserDao{
 			e.printStackTrace();
 			return null;
 		}finally{
+			ConnectionFactory.closeResultSet(rs);
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
@@ -50,10 +52,11 @@ public class UserMysqlDao implements UserDao{
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select userId from user where userNackName=?";
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, nackName);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
 				return null;
@@ -66,6 +69,7 @@ public class UserMysqlDao implements UserDao{
 			e.printStackTrace();
 			return null;
 		}finally{
+			ConnectionFactory.closeResultSet(rs);
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
@@ -158,6 +162,7 @@ public class UserMysqlDao implements UserDao{
 			e.printStackTrace();
 			return false;
 		}finally{
+			
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
