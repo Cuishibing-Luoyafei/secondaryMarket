@@ -27,7 +27,7 @@ create table user (
 	userRole int default 1
 );
 
-insert into user values(null, 'diamond', 'luo', '���Ƿ�', '18888888888', '666666666', 'luo@foxmeil.com', '�����Ƽ���ѧ', 1);
+insert into user values(null, 'diamond', 'luo', '罗亚飞', '18888888888', '666666666', 'luo@foxmeil.com', '西安科技大学', 1);
 
 /*
  * theme
@@ -71,18 +71,18 @@ create table reply (
 
 /*
  * commodity
-commodityId
-commodityName
-commodityCategary
-commodityStatus
-commodityPicture
-commodityDescribe
-commodityCount
+commodityId int
+commodityName String
+commodityCategary int
+commodityStatus int
+commodityPicture String
+commodityDescribe text
+commodityCount  数量 int
 commodityOldNewLevel int
-commodityOldPrice
-commodityNewPrice
-commodityOwner
-commodityDownDay
+commodityOldPrice  老价格 String
+commodityNewPrice  新价格 String
+commodityOwner  拥有者Id int
+commodityDownDay 下架天数 int
  * 
  * */
 
