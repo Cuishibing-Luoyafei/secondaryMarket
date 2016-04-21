@@ -27,7 +27,7 @@ create table user (
 	userRole int default 1
 );
 
-insert into user values(null, 'diamond', 'luo', '���Ƿ�', '18888888888', '666666666', 'luo@foxmeil.com', '�����Ƽ���ѧ', 1);
+insert into user values(null, 'diamond', 'luo', '罗亚飞', '18888888888', '666666666', 'luo@foxmeil.com', '西安科技大学', 1);
 
 /*
  * theme
