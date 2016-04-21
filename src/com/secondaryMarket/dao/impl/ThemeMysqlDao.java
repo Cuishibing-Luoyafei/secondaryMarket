@@ -40,8 +40,8 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return null;
 		}finally{
-			ConnectionFactory.closeConnection(connection);
 			ConnectionFactory.closeStatement(ps);
+			ConnectionFactory.closeConnection(connection);
 		}
 	}
 
@@ -66,8 +66,8 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return null;
 		}finally{
-			ConnectionFactory.closeConnection(connection);
 			ConnectionFactory.closeStatement(ps);
+			ConnectionFactory.closeConnection(connection);
 		}
 	}
 
@@ -96,8 +96,8 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return null;
 		}finally{
-			ConnectionFactory.closeConnection(connection);
 			ConnectionFactory.closeStatement(ps);
+			ConnectionFactory.closeConnection(connection);
 		}
 	}
 
@@ -124,8 +124,8 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return false;
 		}finally{
-			ConnectionFactory.closeConnection(connection);
 			ConnectionFactory.closeStatement(ps);
+			ConnectionFactory.closeConnection(connection);
 		}
 	}
 
@@ -146,8 +146,8 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return false;
 		}finally{
-			ConnectionFactory.closeConnection(connection);
 			ConnectionFactory.closeStatement(ps);
+			ConnectionFactory.closeConnection(connection);
 		}
 	}
 
@@ -174,8 +174,8 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return false;
 		}finally{
-			ConnectionFactory.closeConnection(connection);
 			ConnectionFactory.closeStatement(ps);
+			ConnectionFactory.closeConnection(connection);
 		}
 	}
 
