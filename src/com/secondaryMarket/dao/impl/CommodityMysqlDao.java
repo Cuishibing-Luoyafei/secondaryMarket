@@ -10,22 +10,20 @@ import com.secondaryMarket.dao.CommodityDao;
 import com.secondaryMarket.factory.ConnectionFactory;
 
 public class CommodityMysqlDao implements CommodityDao {
-
-	/*
-	 *  private Integer commodityId = -1;
-		private String commodityName = "";
-		private String commodityCategary = "";
-		private String commodityStatus = "";
-		private String commodityPicture = "";
-		private String commodityDescribe = "";
-		private Integer commodityCount = -1;
-		private Integer commodityOldNewLevel = -1;
-		private Integer commodityOldPrice = -1;
-		private Integer commodityNewPrice = -1;
-		private Integer commodityOwner = "";
-		private Integer commodityDownDay = -1;
-	 * 
-	 * 
+	
+	/* 
+	 * commodityId          | int(11)      | NO   | PRI | NULL    | auto_increment |
+	| commodityName        | varchar(30)  | NO   |     | NULL    |                |
+	| commodityCategary    | varchar(30)  | NO   |     | NULL    |                |
+	| commodityStatus      | int(11)      | YES  |     | -1      |                |
+	| commodityPicture     | varchar(255) | NO   |     | NULL    |                |
+	| commodityDescribe    | text         | NO   |     | NULL    |                |
+	| commodityCount       | int(11)      | YES  |     | 1       |                |
+	| commodityOldNewLevel | int(11)      | YES  |     | NULL    |                |
+	| commodityOldPrice    | varchar(11)  | YES  |     | NULL    |                |
+	| commodityNewPrice    | varchar(11)  | YES  |     | NULL    |                |
+	| commodityOwner       | int(11)      | YES  |     | NULL    |                |
+	| commodityDownDay     | int(11)
 	 * */
 	
 	/* (non-Javadoc)
@@ -42,20 +40,6 @@ public class CommodityMysqlDao implements CommodityDao {
 		conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select * from commodity where commodityId = ?";
 		
-		/* commodityId          | int(11)      | NO   | PRI | NULL    | auto_increment |
-		| commodityName        | varchar(30)  | NO   |     | NULL    |                |
-		| commodityCategary    | varchar(30)  | NO   |     | NULL    |                |
-		| commodityStatus      | int(11)      | YES  |     | -1      |                |
-		| commodityPicture     | varchar(255) | NO   |     | NULL    |                |
-		| commodityDescribe    | text         | NO   |     | NULL    |                |
-		| commodityCount       | int(11)      | YES  |     | 1       |                |
-		| commodityOldNewLevel | int(11)      | YES  |     | NULL    |                |
-		| commodityOldPrice    | varchar(11)  | YES  |     | NULL    |                |
-		| commodityNewPrice    | varchar(11)  | YES  |     | NULL    |                |
-		| commodityOwner       | int(11)      | YES  |     | NULL    |                |
-		| commodityDownDay     | int(11)
-		 * 
-		 * */
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, commodityId);
@@ -79,20 +63,8 @@ public class CommodityMysqlDao implements CommodityDao {
 System.out.println("根据物品Id查找物品，查找结果出现异常！");
 			e.printStackTrace();
 		} finally {
-			try {
-				if(rs != null)
-					rs.close();
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					ConnectionFactory.closeConnection(conn);
-			} catch (SQLException e) {
-System.out.println("根据物品Id查找物品，关闭管道连接出错！");
-				e.printStackTrace();
-			}
+			ConnectionFactory.closed(conn, pstmt, rs);
 		}
-		
-		ConnectionFactory.closeConnection(conn);
 		return commodity;
 	}
 
@@ -131,48 +103,70 @@ System.out.println("物品插入数据库失败！");
 System.out.println("物品插入数据库失败！");
 			e.printStackTrace();
 		} finally {
-			try {
-				if(pstmt != null)
-					pstmt.close();
-				if(conn != null)
-					ConnectionFactory.closeConnection(conn);
-			} catch(SQLException e) {
-System.out.println("插物品入数据库时，关闭管道出错！");
-				e.printStackTrace();
-			}
+			ConnectionFactory.closed(conn, pstmt);
 		}
-		/* commodityId          | int(11)      | NO   | PRI | NULL    | auto_increment |
-		| commodityName        | varchar(30)  | NO   |     | NULL    |                |
-		| commodityCategary    | varchar(30)  | NO   |     | NULL    |                |
-		| commodityStatus      | int(11)      | YES  |     | -1      |                |
-		| commodityPicture     | varchar(255) | NO   |     | NULL    |                |
-		| commodityDescribe    | text         | NO   |     | NULL    |                |
-		| commodityCount       | int(11)      | YES  |     | 1       |                |
-		| commodityOldNewLevel | int(11)      | YES  |     | NULL    |                |
-		| commodityOldPrice    | varchar(11)  | YES  |     | NULL    |                |
-		| commodityNewPrice    | varchar(11)  | YES  |     | NULL    |                |
-		| commodityOwner       | int(11)      | YES  |     | NULL    |                |
-		| commodityDownDay     | int(11)
-		 * 
-		 * */
-		
 		return flag;
 	}
 
 	@Override
 	public boolean updateCommodity(Commodity commodity) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean flag  = true;
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		String sql = "update commodity set commodityName=?, commodityCategary=?, commodityStatus=?, commodityPicture=?," + 
+		" commodityDescribe=?, commodityCount=?, commodityOldNewLevel=?, commodityOldPrice=?, commodityNewPrice=?, commodityOwner=?," + 
+		" commodityDownDay=? where commodityId=?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, commodity.getCommodityCategary());
+			pstmt.setInt(2, commodity.getCommodityStatus());
+			pstmt.setString(3, commodity.getCommodityPicture());
+			pstmt.setString(4, commodity.getCommodityDescribe());
+			pstmt.setInt(5, commodity.getCommodityCount());
+			pstmt.setInt(6, commodity.getCommodityOldNewLevel());
+			pstmt.setString(7, commodity.getCommodityOldPrice());
+			pstmt.setString(8, commodity.getCommodityNewPrice());
+			pstmt.setInt(9, commodity.getCommodityOwner());
+			pstmt.setInt(10, commodity.getCommodityDownDay());
+			pstmt.setString(11, commodity.getCommodityName());
+			int result = pstmt.executeUpdate();
+			if(result != 1) {
+				flag = false;
+System.out.println("物品更新失败！");
+			}
+		} catch(SQLException e) {
+			flag = false;
+System.out.println("物品更新失败！");
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closed(conn, pstmt);
+		}
+		return flag;
 	}
 
 	@Override
 	public boolean deleteCommodity(Commodity commodity) {
 		// TODO Auto-generated method stub
 		boolean flag = true;
-		
-		
-		
-		return false;
+		int commodityId = commodity.getCommodityId();
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		String sql = "delete from commodity where commodityId = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commodityId);
+			if(pstmt.executeUpdate() != 1)
+				flag = false;
+		} catch(SQLException e) {
+			flag = false;
+System.out.println("数据库删除货物时出错！");
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closed(conn, pstmt);
+		}
+		return flag;
 	}
 
 }
