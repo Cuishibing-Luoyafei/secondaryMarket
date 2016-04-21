@@ -1,6 +1,7 @@
 package com.secondaryMarket.factory;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.secondaryMarket.database.ConnectionBuilder;
@@ -11,7 +12,7 @@ public class ConnectionFactory{
 		return new MySqlConnectionBuiler();
 	}
 	public static boolean closeConnection(Connection conn){
-		if(conn!=null){
+		if(conn != null){
 			try {
 				conn.close();
 				return true;
@@ -21,5 +22,9 @@ public class ConnectionFactory{
 			}
 		}else
 			return true;
+	}
+	public static boolean closePstmt(PreparedStatement pstmt) {
+		
+		return false;
 	}
 }
