@@ -12,12 +12,13 @@ import com.secondaryMarket.dao.ThemeDao;
 import com.secondaryMarket.factory.ConnectionFactory;
 
 public class ThemeMysqlDao implements ThemeDao{
-	private Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 	@Override
 	public Theme getThemeInId(Integer themeId) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select * from theme where themeId=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setInt(1, themeId);
 			ResultSet rs = ps.executeQuery();
 			rs.last();
@@ -38,14 +39,19 @@ public class ThemeMysqlDao implements ThemeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public Theme getThemeInTitle(String themeTitle) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select themeId from theme where themeTitle=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setString(1, themeTitle);
 			ResultSet rs = ps.executeQuery();
 			rs.last();
@@ -59,14 +65,19 @@ public class ThemeMysqlDao implements ThemeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public List<Theme> getThemes(Integer start, Integer size) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select themeId from theme where themeId limit ?,?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setInt(1, start);
 			ps.setInt(2, size);
 			ResultSet rs = ps.executeQuery();
@@ -84,15 +95,20 @@ public class ThemeMysqlDao implements ThemeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public boolean insertTheme(Theme theme) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "insert into theme(themeTitle,themeContent,themeTime,themeUserId"
 				+ ",themeCommodityId,themeIsRead) values(?,?,?,?,?,?)";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setString(1, theme.getThemeTitle());
 			ps.setString(2, theme.getThemeContent());
 			ps.setTimestamp(3, theme.getThemeTime());
@@ -107,14 +123,19 @@ public class ThemeMysqlDao implements ThemeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public boolean deleteTheme(Theme theme) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "delete from theme where themeId=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setInt(1, theme.getThemeId());
 			if(ps.executeUpdate()<1){
 				return false;
@@ -124,15 +145,20 @@ public class ThemeMysqlDao implements ThemeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public boolean updateTheme(Theme theme) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "update theme set themeTitle=?,themeContent=?,themeTime=?,themeUserId=?"
 				+ ",themeCommodityId=?,themeIsRead=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setString(1, theme.getThemeTitle());
 			ps.setString(2, theme.getThemeContent());
 			ps.setTimestamp(3, theme.getThemeTime());
@@ -147,11 +173,15 @@ public class ThemeMysqlDao implements ThemeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public boolean isTop(Theme theme, boolean flag) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		return false;
 	}
 	

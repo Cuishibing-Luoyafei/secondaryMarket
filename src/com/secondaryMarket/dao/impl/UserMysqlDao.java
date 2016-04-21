@@ -10,12 +10,13 @@ import com.secondaryMarket.dao.UserDao;
 import com.secondaryMarket.factory.ConnectionFactory;
 
 public class UserMysqlDao implements UserDao{
-	private Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 	@Override
 	public User getUserInId(Integer userId) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select * from user where userId=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
 			rs.last();
@@ -38,14 +39,19 @@ public class UserMysqlDao implements UserDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public User getUserInName(String nackName) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "select userId from user where userNackName=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setString(1, nackName);
 			ResultSet rs = ps.executeQuery();
 			rs.last();
@@ -59,14 +65,19 @@ public class UserMysqlDao implements UserDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public boolean deleteUser(User user) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "delete from user where userId=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setInt(1, user.getUserId());
 			if(ps.executeUpdate()<1){
 				return false;
@@ -76,6 +87,9 @@ public class UserMysqlDao implements UserDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
@@ -90,10 +104,12 @@ public class UserMysqlDao implements UserDao{
 
 	@Override
 	public boolean insertUser(User user) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "insert into user(userNackName,userPassword,userRealName,userTel"
 				+ ",userQQ,userEmail,userSchool,userRole) values(?,?,?,?,?,?,?,?)";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setString(1, user.getUserNackName());
 			ps.setString(2, user.getUserPassword());
 			ps.setString(3, user.getUserRealName());
@@ -110,15 +126,20 @@ public class UserMysqlDao implements UserDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 
 	@Override
 	public boolean updateUser(User user) {
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "update user set userNackName=?,userPassword=?,userRealName=?,"
 				+ "userTel=?,userQQ=?,userEmail=?,userSchool=?,userRole=?";
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			ps = connection.prepareStatement(sql);
 			ps.setString(1, user.getUserNackName());
 			ps.setString(2, user.getUserPassword());
 			ps.setString(3, user.getUserRealName());
@@ -136,6 +157,9 @@ public class UserMysqlDao implements UserDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}finally{
+			ConnectionFactory.closeConnection(connection);
+			ConnectionFactory.closeStatement(ps);
 		}
 	}
 	

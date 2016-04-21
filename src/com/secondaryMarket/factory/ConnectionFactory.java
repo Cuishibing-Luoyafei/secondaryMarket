@@ -3,6 +3,7 @@ package com.secondaryMarket.factory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.secondaryMarket.database.ConnectionBuilder;
 import com.secondaryMarket.database.impl.MySqlConnectionBuiler;
@@ -23,8 +24,16 @@ public class ConnectionFactory{
 		}else
 			return true;
 	}
-	public static boolean closePstmt(PreparedStatement pstmt) {
-		
-		return false;
+	public static boolean closeStatement(PreparedStatement ps) {
+		if(ps!=null){
+			try {
+				ps.close();
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}else
+			return false;
 	}
 }
