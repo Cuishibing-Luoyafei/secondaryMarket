@@ -22,7 +22,7 @@ public class ConnectionFactory{
 				return false;
 			}
 		}else
-			return true;
+			return false;
 	}
 	public static boolean closeStatement(PreparedStatement ps) {
 		if(ps!=null){
