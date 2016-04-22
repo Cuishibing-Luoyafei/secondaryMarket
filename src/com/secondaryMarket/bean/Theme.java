@@ -28,14 +28,18 @@ public class Theme {
 	public void setThemeContent(String themeContent) {
 		this.themeContent = themeContent;
 	}
-	public Timestamp getThemeTime() {
+	public String getThemeTime() {
 		if(themeTime!=null)
-			return themeTime;
+			return themeTime.toString();
 		else{
 			themeTime = new Timestamp(System.currentTimeMillis());
-			return themeTime;
+			return themeTime.toString();
 		}
 		
+	}
+	public Timestamp getTimestamp(){
+		getThemeTime();
+		return themeTime;
 	}
 	public void setThemeTime(Timestamp themeTime) {
 		this.themeTime = themeTime;

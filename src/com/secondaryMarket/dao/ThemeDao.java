@@ -8,6 +8,7 @@ public interface ThemeDao {
 	public Theme getThemeInId(Integer themeId);
 	public Theme getThemeInTitle(String themeTitle);
 	public List<Theme> getThemes(Integer start,Integer size);
+	public List<Theme> getTopThemes();
 	public boolean insertTheme(Theme theme);
 	public boolean deleteTheme(Theme theme);
 	public boolean updateTheme(Theme theme);

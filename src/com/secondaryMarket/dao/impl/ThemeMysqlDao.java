@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +102,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			e.printStackTrace();
 			return null;
 		}finally{
+			ConnectionFactory.closeResultSet(rs);
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
@@ -116,7 +118,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, theme.getThemeTitle());
 			ps.setString(2, theme.getThemeContent());
-			ps.setTimestamp(3, theme.getThemeTime());
+			ps.setTimestamp(3,theme.getTimestamp());
 			ps.setInt(4, theme.getThemeUserId());
 			ps.setInt(5, theme.getThemeCommodityId());
 			ps.setInt(6, theme.getThemeIsRead());
@@ -166,7 +168,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, theme.getThemeTitle());
 			ps.setString(2, theme.getThemeContent());
-			ps.setTimestamp(3, theme.getThemeTime());
+			ps.setTimestamp(3, theme.getTimestamp());
 			ps.setInt(4, theme.getThemeUserId());
 			ps.setInt(5,theme.getThemeCommodityId());
 			ps.setInt(6, theme.getThemeIsRead());
@@ -187,7 +189,53 @@ public class ThemeMysqlDao implements ThemeDao{
 	@Override
 	public boolean isTop(Theme theme, boolean flag) {
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
-		return false;
+		String sql = "insert into topTheme(themeId) values(?)";
+		String sql1 = "delete from topTheme where themeId=?";
+		PreparedStatement ps = null;
+		try{
+			if(flag)
+				ps = connection.prepareStatement(sql);
+			else
+				ps = connection.prepareStatement(sql1);
+			ps.setInt(1, theme.getThemeId());
+			if(ps.executeUpdate()<1)
+				return false;
+			else
+				return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			ConnectionFactory.closed(connection, ps);
+		}
+	}
+
+	@Override
+	public List<Theme> getTopThemes() {
+		String sql = "select themeId from topTheme";
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.last();
+			if(rs.getRow()<1)
+				return null;
+			else{
+				List<Theme> topThemes = new ArrayList<Theme>();
+				rs.beforeFirst();
+				while(rs.next()){
+					topThemes.add(getThemeInId(rs.getInt("themeId")));
+				}
+				return topThemes;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			ConnectionFactory.closed(connection, ps, rs);
+		}
 	}
 	
 }

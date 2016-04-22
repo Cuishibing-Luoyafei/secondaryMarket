@@ -100,3 +100,8 @@ create table commodity (
 	commodityOwner int references user(userId),
 	commodityDownDay int
 );
+
+create table topTheme(
+	topThemeId int primary key auto_increment,
+	themeId int references theme(themeId)
+);
