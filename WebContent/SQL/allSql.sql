@@ -59,7 +59,7 @@ replyUserId
 replyContent
 replyTime
  * 
- */*/
+ */
 create table reply (
 	replyId int primary key auto_increment,
 	replyThemeId int references theme(themeId),
