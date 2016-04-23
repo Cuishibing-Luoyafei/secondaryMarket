@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.secondaryMarket.bean.Blame;
 import com.secondaryMarket.bean.User;
 import com.secondaryMarket.dao.UserDao;
 import com.secondaryMarket.factory.ConnectionFactory;
@@ -167,5 +168,77 @@ public class UserMysqlDao implements UserDao{
 			ConnectionFactory.closeConnection(connection);
 		}
 	}
+
+	@Override
+	public boolean blameUser(Blame blame) {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		String sql = "select userId from blame where userId = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, blame.getUserId());
+			rs = pstmt.executeQuery();
+			flag = rs.next();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closed(conn, pstmt, rs);
+		}
+		
+		if(flag) {
+			return blameUpdate(blame);
+		} else {
+			return blameInsert(blame);
+		}
+		
+	}
 	
+	private boolean blameUpdate(Blame blame) {
+		
+		boolean flag = true;
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		String sql = "update blame set blameCount = ?, blameReason = concat(blameReason, ?) where blameId = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, blame.getBlameCount());
+			pstmt.setString(2, "/" + blame.getBlameReason());
+			pstmt.setInt(3, blame.getBlameId());
+			if(pstmt.executeUpdate() != 1) {
+System.out.println("更新封禁表出现异常！");
+				flag = false;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closed(conn, pstmt);
+		}
+		return flag;
+	}
+	
+	private boolean blameInsert(Blame blame) {
+		
+		boolean flag = true;
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		String sql = "insert into blame(blameId, userId, blameCount, blameReason) values(null, ?, ?, ?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, blame.getUserId());
+			pstmt.setInt(2, blame.getBlameCount());
+			pstmt.setString(3, blame.getBlameReason());
+			if(pstmt.executeUpdate() != 1) {
+System.out.println("插入封禁表出错！");
+				flag = false;
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closed(conn, pstmt);
+		}
+		return flag;
+	}
 }

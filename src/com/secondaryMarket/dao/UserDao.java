@@ -1,5 +1,6 @@
 package com.secondaryMarket.dao;
 
+import com.secondaryMarket.bean.Blame;
 import com.secondaryMarket.bean.User;
 
 public interface UserDao {
@@ -24,4 +25,5 @@ public interface UserDao {
 	 * */
 	public boolean insertUser(User user);
 	public boolean updateUser(User user);
+	public boolean blameUser(Blame blame);
 }

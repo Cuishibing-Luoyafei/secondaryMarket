@@ -105,3 +105,10 @@ create table topTheme(
 	topThemeId int primary key auto_increment,
 	themeId int references theme(themeId)
 );
+
+create table blame (
+	blameId int primary key auto_increment,
+	userId int references user(userId),
+	blameCount int default 0,
+	blameReason text
+)
