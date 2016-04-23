@@ -120,17 +120,18 @@ System.out.println("物品插入数据库失败！");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, commodity.getCommodityCategary());
-			pstmt.setInt(2, commodity.getCommodityStatus());
-			pstmt.setString(3, commodity.getCommodityPicture());
-			pstmt.setString(4, commodity.getCommodityDescribe());
-			pstmt.setInt(5, commodity.getCommodityCount());
-			pstmt.setInt(6, commodity.getCommodityOldNewLevel());
-			pstmt.setString(7, commodity.getCommodityOldPrice());
-			pstmt.setString(8, commodity.getCommodityNewPrice());
-			pstmt.setInt(9, commodity.getCommodityOwner());
-			pstmt.setInt(10, commodity.getCommodityDownDay());
-			pstmt.setString(11, commodity.getCommodityName());
+			pstmt.setString(1, commodity.getCommodityName());
+			pstmt.setString(2, commodity.getCommodityCategary());
+			pstmt.setInt(3, commodity.getCommodityStatus());
+			pstmt.setString(4, commodity.getCommodityPicture());
+			pstmt.setString(5, commodity.getCommodityDescribe());
+			pstmt.setInt(6, commodity.getCommodityCount());
+			pstmt.setInt(7, commodity.getCommodityOldNewLevel());
+			pstmt.setString(8, commodity.getCommodityOldPrice());
+			pstmt.setString(9, commodity.getCommodityNewPrice());
+			pstmt.setInt(10, commodity.getCommodityOwner());
+			pstmt.setInt(11, commodity.getCommodityDownDay());
+			pstmt.setInt(12, commodity.getCommodityId());
 			int result = pstmt.executeUpdate();
 			if(result != 1) {
 				flag = false;
@@ -168,5 +169,4 @@ System.out.println("数据库删除货物时出错！");
 		}
 		return flag;
 	}
-
 }

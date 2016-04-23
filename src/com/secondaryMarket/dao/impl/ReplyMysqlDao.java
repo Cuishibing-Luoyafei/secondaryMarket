@@ -60,6 +60,8 @@ System.out.println("通过回复Id，获取回复的实体bean时，出错！");
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, size);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Reply reply = new Reply();
@@ -85,16 +87,15 @@ System.out.println("进行回复的list的获取，出现异常错误！");
 		// TODO Auto-generated method stub
 		boolean flag = true;
 		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
-		String sql = "insert into reply(replyId, replyThemeId, replyUserId, replyContent, replyTime) values(?, ?, ?, ?, ?)";
+		String sql = "insert into reply(replyId, replyThemeId, replyUserId, replyContent, replyTime) values(null, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, reply.getReplyId());
-			pstmt.setInt(2, reply.getReplyThemeId());
-			pstmt.setInt(3, reply.getReplyUserId());
-			pstmt.setString(4, reply.getReplyContent());
-			pstmt.setTimestamp(5, reply.getReplyTime());
+			pstmt.setInt(1, reply.getReplyThemeId());
+			pstmt.setInt(2, reply.getReplyUserId());
+			pstmt.setString(3, reply.getReplyContent());
+			pstmt.setTimestamp(4, reply.getReplyTime());
 			if(pstmt.executeUpdate() != 1) {
 				flag = false;
 System.out.println("往数据库reply表中，插入回复的数据时，出错！");

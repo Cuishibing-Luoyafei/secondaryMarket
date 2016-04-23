@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class ThemeMysqlDao implements ThemeDao{
 				theme.setThemeIsRead(rs.getInt("themeIsRead"));
 				theme.setThemeTime(rs.getTimestamp("themeTime"));
 				theme.setThemeTitle(rs.getString("themeTitle"));
-				theme.setThemeUserId(rs.getInt("userId"));
+				theme.setThemeUserId(rs.getInt("themeUserId"));
 				return theme;
 			}
 		} catch (SQLException e) {
@@ -162,7 +161,7 @@ public class ThemeMysqlDao implements ThemeDao{
 	public boolean updateTheme(Theme theme) {
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "update theme set themeTitle=?,themeContent=?,themeTime=?,themeUserId=?"
-				+ ",themeCommodityId=?,themeIsRead=?";
+				+ ",themeCommodityId=?,themeIsRead=? where themeId = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -172,6 +171,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			ps.setInt(4, theme.getThemeUserId());
 			ps.setInt(5,theme.getThemeCommodityId());
 			ps.setInt(6, theme.getThemeIsRead());
+			ps.setInt(7, theme.getThemeId());
 			if(ps.executeUpdate()<1){
 				return false;
 			}else{

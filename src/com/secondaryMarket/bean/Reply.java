@@ -43,6 +43,8 @@ public class Reply {
 		this.replyUserId = replyUserId;
 	}
 	public Timestamp getReplyTime() {
+		if(replyTime == null)
+			replyTime = new Timestamp(System.currentTimeMillis());
 		return replyTime;
 	}
 	public void setReplyTime(Timestamp replyTime) {

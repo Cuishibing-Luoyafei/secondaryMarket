@@ -140,7 +140,7 @@ public class UserMysqlDao implements UserDao{
 	public boolean updateUser(User user) {
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		String sql = "update user set userNackName=?,userPassword=?,userRealName=?,"
-				+ "userTel=?,userQQ=?,userEmail=?,userSchool=?,userRole=?";
+				+ "userTel=?,userQQ=?,userEmail=?,userSchool=?,userRole=? where userId = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -152,7 +152,7 @@ public class UserMysqlDao implements UserDao{
 			ps.setString(6, user.getUserEmail());
 			ps.setString(7, user.getUserSchool());
 			ps.setInt(8, user.getUserRole());
-			ps.setInt(8, user.getUserRole());
+			ps.setInt(9, user.getUserId());
 			if(ps.executeUpdate()<1){
 				return false;
 			}else{
