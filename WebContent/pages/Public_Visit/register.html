@@ -5,95 +5,17 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="icon" href="../../favicon.ico">
 
 		<title>用户注册</title>
 
-		<!-- Bootstrap core CSS -->
 		<link href="../../assets/bootstrap-3.3.5/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-		<link href="" type="" />
-		<!-- Custom styles for this template -->
 		<link href="../../assets/bootstrap-3.3.5/docs/examples/signin/signin.css" rel="stylesheet">
-
-		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
-		<style>
-			* {
-				margin: 0px;
-				padding: 0px;
-			}
-			
-			body {
-				background: url("../../assets/img/login/324234.jpg");
-			}
-			
-			a:hover {
-				text-decoration: none;
-			}
-			
-			i {
-				font-style: normal;
-			}
-			
-			.container {
-				width: 100%;
-				height: 100%;
-				font-family: "微软雅黑";
-			}
-			
-			.page-header {
-				text-align: center;
-				/*background-color: #000000;*/
-				color: snow;
-			}
-			
-			.main {
-				width: 30%;
-				margin: 4% auto 0 auto;
-				padding: 10px;
-				background-color: white;
-				border-radius: 5px;
-				opacity: 0.9;
-			}
-			
-			.main-login {
-				padding: 10px auto;
-			}
-			
-			.form-control {
-				width: 95%;
-			}
-			
-			.forget-password {
-				float: left;
-			}
-			
-			.register {
-				float: right;
-			}
-			
-			.other-login {
-				float: left;
-			}
-			
-			.other-detail {
-				margin-bottom: 20px;
-			}
-			
-			label {
-				float: left;
-			}
-		</style>
+		<link href="../../css/login.css" type="text/css" rel="stylesheet" />
+		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
 	</head>
 
 	<body>
@@ -112,15 +34,15 @@
 			<div class="main">
 				
 				<div class="main-login">
-					<form action="../RegisterResult" method="post" name="form" onsubmit="return checkdata()">
+					<div action="../RegisterResult" method="post" name="form">
 						<div class="form-group" style="margin-top: 20px;">
-							<input type="email" class="form-control" name="username" id="exampleInputEmail1" placeholder="邮箱" onblur="checkemail()">
+							<input type="email" class="form-control" name="username" id="userName" placeholder="用户名" onblur="checkemail()">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="密码" onblur="chechpassword()">
+							<input type="password" class="form-control" name="password" id="password" placeholder="密码" onblur="checkpassword()">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" name="repassword" id="exampleInputPassword2" placeholder="确认密码" onblur="chechrepassword()">
+							<input type="password" class="form-control" name="repassword" id="repassword" placeholder="确认密码" onblur="checkrepassword()">
 						</div>
 						<div class="checkbox">
 							<label>
@@ -129,8 +51,8 @@
 							</label>
 						</div>
 						<input type="hidden" name="action" value="register" />
-						<button type="submit" class="btn btn-success btn-l btn-block">确认注册</button>
-					</form>
+						<button type="submit" class="btn btn-success btn-l btn-block" onclick="checkdata()">确认注册</button>
+					</div>
 				</div>
 				<div class="main-buttom">
 					<div class="register">
@@ -140,18 +62,65 @@
 				</div>
 			</div>
 		</div>
-		<!-- Bootstrap core JavaScript
-	    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
-		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
-		<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
 	</body>
 	<script>
-		<!--
+	function checkdata() {
+		
+		if($("#userName").val().trim()!="" && $("#password").val().trim()!="" && $("#repassword").val().trim()!="" && $("#password").val().trim()==$("#repassword").val().trim()) {
+			$.get("/secondaryMarket/UserRegister",{
+				userName : $("#userName").val().trim(),
+				password : $("#password").val().trim()
+			}, function(data, textStatus) {
+				
+				if(data.isSuccess == "false") {
+					if(data.canUse == "false")
+						alert("该用户名不可用！");
+					else
+						alert("注册失败！请刷新重试！");
+				} else {
+					alert("注册成功！");
+					window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+				}
+				
+			},"json");
+		} else {
+			alert("请完善信息后再注册！");
+		}
+	}
+	
+		function checkemail() {
+			var email = $("#userName").val().trim();
+			var alertemail = $(".alert-email");
+			var checkemail = $(".alert-check-email");
+			if (email === "") {
+				alertemail.attr("style", "display:inline-block;");
+				checkemail.attr("style", "display:none;");
+			}
+			if (email !== "") {
+				alertemail.attr("style", "display:none;");
+			}
+		}
+		
+		function checkpassword() {
+			var password = $("#password").val().trim();
+			if (password === "") {
+				$(".alert-password").attr("style", "display:inline-block;");
+			} else {
+				$(".alert-password").attr("style", "display:none;");
+			}
+		}
+	
+		function checkrepassword() {
+			var password = $("#password").val().trim();
+			var repassword = $("#repassword").val().trim();
+			if (repassword === "" || password !== repassword) {
+				$(".alert-repassword").attr("style", "display:inline-block;");
+			} else if (password === repassword) {
+				$(".alert-repassword").attr("style", "display:none;");
+			}
+		}
+	
+		/* <!--
 		var str = "";
 
 		function regetIdentifyCode() {
@@ -171,67 +140,14 @@
 			}
 		}
 
-		function checkemail() {
-			var email = $("#exampleInputEmail1").val().trim();
-			var alertemail = $(".alert-email");
-			var checkemail = $(".alert-check-email");
-			if (email === "") {
-				alertemail.attr("style", "display:inline-block;");
-				checkemail.attr("style", "display:none;");
-			}
-			//当email的输入非空时，进行ajax验证
-			var xmlhttp = null;
-			if (email !== "") {
-				alertemail.attr("style", "display:none;");
-				if (window.XMLHttpRequest) {
-					xmlhttp = new XMLHttpRequest();
-				} else if (window.ActiveXObject) {
-					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
-				}
-				if (xmlhttp === null) {
-					alert("无法创建XMLHttpRequest对象");
-					return;
-				}
-				xmlhttp.open("GET", "../CheckUsernameForAJAX?username=" + email, true);
-				xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState == 4) {
-						if (xmlhttp.status == 200) {
-							var result = xmlhttp.responseText;
-							//alert(result);
-							checkemail.attr("style", "display:inline-block;");
-							$(".email-error").text(result);
-						} else {
-							alert(xmlhttp.status);
-						}
-					}
-				}
-				xmlhttp.send(null);
-			}
-		}
 
-		function chechpassword() {
-			var password = $("#exampleInputPassword1").val().trim();
-			if (password === "") {
-				$(".alert-password").attr("style", "display:inline-block;");
-			} else {
-				$(".alert-password").attr("style", "display:none;");
-			}
-		}
+		
 
-		function chechrepassword() {
-			var password = $("#exampleInputPassword1").val().trim();
-			var repassword = $("#exampleInputPassword2").val().trim();
-			if (repassword === "" || password !== repassword) {
-				$(".alert-repassword").attr("style", "display:inline-block;");
-			} else if (password === repassword) {
-				$(".alert-repassword").attr("style", "display:none;");
-			}
-		}
 
 		function checkdata() {
-			var email = $("#exampleInputEmail1").val().trim();
-			var password = $("#exampleInputPassword1").val().trim();
-			var repassword = $("#exampleInputPassword2").val().trim();
+			var email = $("#userName").val().trim();
+			var password = $("#password").val().trim();
+			var repassword = $("#repassword").val().trim();
 			if (email === "" || password === "" || repassword === "") {
 				alert("请您将信息填写完整");
 				return false;
@@ -243,7 +159,7 @@
 				return true;
 			}
 		}
-		-->
+		--> */
 	</script>
 
 </html>

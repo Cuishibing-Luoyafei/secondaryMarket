@@ -24,8 +24,19 @@
 					<div class="navbar-form pull-right">
 
 						<div id="login-register-bar">
+						<%
+							if(session.getAttribute("userName") == null) {
+						%>
 							<a class="btn btn-primary" href="/secondaryMarket/pages/Public_Visit/login.html">登陆</a>
 							<a class="btn btn-default" href="/secondaryMarket/pages/Public_Visit/register.html">注册</a>
+						<%
+							} else {
+						%>
+							<a class="btn btn-primary" href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">个人中心</a>
+							<a class="btn btn-default" href="#">注销</a>
+						<%
+							}
+						%>
 						</div>
 					</div>
 				</div>

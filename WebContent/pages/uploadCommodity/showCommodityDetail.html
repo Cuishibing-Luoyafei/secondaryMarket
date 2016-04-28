@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>商品上传</title>
+
+		<link href="../../assets/bootstrap-3.3.5/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+		<link href="../../assets/bootstrap-3.3.5/docs/examples/signin/signin.css" rel="stylesheet">
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
+		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<form action="/secondaryMarket/UploadCommodity" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+				
+			  <div class="form-group">
+			    <label for="commodityName" class="col-sm-2 control-label">商品名称</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="commodityName" id="commodityName" placeholder="商品名称">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityCategary" class="col-sm-2 control-label">商品类型</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="commodityCategary" id="commodityCategary" placeholder="商品类型">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityCount" class="col-sm-2 control-label">商品数量</label>
+			    <div class="col-sm-10">
+			      <label class="form-control" name="commodityCount" id="commodityCount">商品数量</label>
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityStatus" class="col-sm-2 control-label">商品状态</label>
+			    <div class="col-sm-10">
+			      	<label name="commodityStatus" id="commodityStatus" class="form-control">新品上架</label>
+			    </div>
+			  </div>
+			  
+			   <div class="form-group">
+			    <label for="commodityOldNewLevel" class="col-sm-2 control-label">新旧程度</label>
+			    <div class="col-sm-10">
+			      	<label name="commodityOldNewLevel" id="commodityOldNewLevel" class="form-control">新旧程度</label>
+			    </div>
+			  </div>
+			 
+			  <div class="form-group">
+			    <label for="commodityOldPrice" class="col-sm-2 control-label">商品原价</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="commodityOldPrice" id="commodityOldPrice" placeholder="商品原价">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityNewPrice" class="col-sm-2 control-label">商品现价</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="commodityNewPrice" id="commodityNewPrice" placeholder="商品现价">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityDownDay" class="col-sm-2 control-label">下架天数</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="commodityDownDay" id="commodityDownDay" placeholder="下架天数">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityPicture" class="col-sm-2 control-label">上传图片</label>
+			    <div class="col-sm-10">
+			      <input type="file" class="form-control" name="commodityPicture" id="commodityPicture" accept="image/*">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityDescribe" class="col-sm-2 control-label">商品描述</label>
+			    <div class="col-sm-10">
+			      <textarea class="form-control" name="commodityDescribe" id="commodityDescribe" placeholder="描述"></textarea>
+			    </div>
+			  </div>
+			  
+			  
+			  <!-- <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" id="submitUpload" class="btn btn-block btn-success">确认上传</button>
+			    </div>
+			  </div> -->
+			</form>
+			<script>
+				
+			</script>
+		</div>
+	</body>
+</html>

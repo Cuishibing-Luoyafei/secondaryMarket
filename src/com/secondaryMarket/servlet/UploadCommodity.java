@@ -51,7 +51,7 @@ public class UploadCommodity extends HttpServlet{
 		String commodityNewPrice = req.getParameter("commodityNewPrice");
 		String commodityDownDayStr = req.getParameter("commodityDownDay");
 		Commodity c = new Commodity();
-		c.setCommodityOwner(Integer.parseInt(userName));
+		c.setCommodityOwner((ServiceFactory.createUserService().getUserInName(userName).getUserId()));
 		c.setCommodityName(commodityName);
 		c.setCommodityCategary(commodityCategary);
 		c.setCommodityStatus(Integer.parseInt(commodityStatusStr));
@@ -62,13 +62,14 @@ public class UploadCommodity extends HttpServlet{
 		c.setCommodityNewPrice(commodityNewPrice);
 		c.setCommodityDownDay(Integer.parseInt(commodityDownDayStr));
 		String fileName = Long.valueOf(System.currentTimeMillis()).toString()+".jpg";
+//System.out.println("fileName:" + fileName);
 		c.setCommodityPicture(fileName);
 		CommodityService cs = ServiceFactory.createCommodityService();
 		JSONObject result = new JSONObject();
 		if(cs.insertCommodity(c)){
 			isSuccess = true;
 			Part part = req.getPart("commodityPicture");
-			writeTo(part, Long.valueOf(System.currentTimeMillis()).toString());
+			writeTo(part, fileName);
 		}else{
 			isSuccess = false;
 		}
@@ -81,7 +82,7 @@ public class UploadCommodity extends HttpServlet{
 	
 	private void writeTo(Part part,String fileName) throws IOException{
 		InputStream in = part.getInputStream();
-		OutputStream out = new FileOutputStream(new File("/assets/commodityPicture/"+fileName));
+		OutputStream out = new FileOutputStream(new File("G:\\Eclipse\\Project\\EclipseEEProject\\secondaryMarket\\WebContent\\assets\\commodityPicture\\"+fileName));
 		byte[] buffer = new byte[1024];
 		int length = -1;
 		while ((length = in.read(buffer)) != -1) {

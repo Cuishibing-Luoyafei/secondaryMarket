@@ -25,6 +25,7 @@ public class UserLogin extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userName = req.getParameter("userName");
 		String userPassword = req.getParameter("password");
+//System.out.println("Username:" + userName);
 		UserService userService = ServiceFactory.createUserService();
 		User user = userService.getUserInName(userName);
 		JSONObject result = new JSONObject();
