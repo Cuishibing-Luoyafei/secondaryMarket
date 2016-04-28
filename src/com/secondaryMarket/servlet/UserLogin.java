@@ -41,6 +41,7 @@ public class UserLogin extends HttpServlet{
 				result.accumulate("rigthPassword", "false");
 			}
 		}
+		resp.getWriter().write(result.toString());
 	}
 	
 }
