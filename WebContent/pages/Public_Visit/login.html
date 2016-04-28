@@ -27,73 +27,16 @@
 		  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<style>
-			* {
-				margin: 0px;
-				padding: 0px;
-			}
-			
-			body {
-				background: url("../../assets/img/login/324234.jpg");
-			}
-			
-			a:hover {
-				text-decoration: none;
-			}
-			
-			i {
-				font-style: normal;
-			}
-			
-			.container {
-				width: 100%;
-				height: 100%;
-				font-family: "微软雅黑";
-			}
-			
-			.page-header {
-				text-align: center;
-				/*background-color: #000000;*/
-				color: snow;
-			}
-			
-			.main {
-				width: 30%;
-				margin: 4% auto 0 auto;
-				padding: 10px;
-				background-color: white;
-				border-radius: 5px;
-				opacity: 0.9;
-			}
-			
-			.main-login {
-				padding: 10px auto;
-			}
-			
-			.form-control {
-				width: 95%;
-			}
-			
-			.forget-password {
-				float: left;
-			}
-			
-			.register {
-				float: right;
-			}
-			
-			.other-login {
-				float: left;
-			}
-			
-			.other-detail {
-				margin-bottom: 20px;
-			}
-			
-			label {
-				float: left;
-			}
-		</style>
+		<link href="../../css/login.css" type="text/css" rel="stylesheet" />
+		<!-- Bootstrap core JavaScript
+	    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+		<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
 	</head>
 
 	<body>
@@ -126,20 +69,17 @@
 							</label>
 						</div>
 						<input type="hidden" name="action" value="register" />
-						<button type="submit" class="btn btn-success btn-l btn-block">确认注册</button>
+						<button type="submit" class="btn btn-success btn-l btn-block">确认登陆</button>
 					</form>
+				</div>
+				<div class="main-buttom">
+					<div class="register">
+						<a class="btn" href="/secondaryMarket/index.html">返回首页</a>
+					</div>
+					<br />
 				</div>
 			</div>
 		</div>
-		<!-- Bootstrap core JavaScript
-	    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
-		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
-		<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
 	</body>
 	<script>
 		<!--
