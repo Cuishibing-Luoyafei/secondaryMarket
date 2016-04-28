@@ -29,14 +29,16 @@ public class UserLogin extends HttpServlet{
 		User user = userService.getUserInName(userName);
 		JSONObject result = new JSONObject();
 		if(user==null){
+			result.accumulate("isSuccess", "false");
 			result.accumulate("isRegister","false");
 		}else{
 			if(user.getUserNackName().equals(userName)&&user.getUserPassword().equals(userPassword)){
 				result.accumulate("isSuccess", "true");
 				req.getSession().setAttribute("userName", user.getUserNackName());
-				
 			}else{
 				result.accumulate("isSuccess", "false");
+				result.accumulate("isRegister","true");
+				result.accumulate("rigthPassword", "false");
 			}
 		}
 	}
