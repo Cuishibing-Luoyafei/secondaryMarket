@@ -12,7 +12,7 @@
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">首页</a></li>
 						<li><a class="text-primary" href="#">关于我们</a></li>
-						<li><a class="text-primary" href="/demo-two/framePage/main.jsp">论坛</a></li>
+						<li><a class="text-primary" href="#">论坛</a></li>
 						<form class="navbar-form navbar-left" role="search">
 							<div class="form-group">
 								<input type="text" class="form-control" placeholder="Search">
@@ -33,7 +33,7 @@
 							} else {
 						%>
 							<a class="btn btn-primary" href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">个人中心</a>
-							<a class="btn btn-default" href="#">注销</a>
+							<a class="btn btn-default" href="/secondaryMarket/LoginOut">注销</a>
 						<%
 							}
 						%>
