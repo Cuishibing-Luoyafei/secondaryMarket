@@ -6,8 +6,7 @@ import com.secondaryMarket.bean.Commodity;
 import com.secondaryMarket.bean.User;
 import com.secondaryMarket.dao.CommodityDao;
 import com.secondaryMarket.factory.DaoFactory;
-
-import cui.secondaryMarket.service.CommodityService;
+import com.secondaryMarket.service.CommodityService;
 
 public class CommodityServiceImpl implements CommodityService{
 	private CommodityDao cd;

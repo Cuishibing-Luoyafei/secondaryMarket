@@ -5,8 +5,7 @@ import java.util.List;
 import com.secondaryMarket.bean.Theme;
 import com.secondaryMarket.dao.ThemeDao;
 import com.secondaryMarket.factory.DaoFactory;
-
-import cui.secondaryMarket.service.ThemeService;
+import com.secondaryMarket.service.ThemeService;
 
 public class ThemeServiceImpl implements ThemeService{
 	private ThemeDao td;

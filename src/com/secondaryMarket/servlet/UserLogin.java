@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondaryMarket.bean.User;
 import com.secondaryMarket.factory.ServiceFactory;
+import com.secondaryMarket.service.UserService;
 
-import cui.secondaryMarket.service.UserService;
 import net.sf.json.JSONObject;
 @WebServlet(name="UserLogin",urlPatterns="/UserLogin")
 public class UserLogin extends HttpServlet{

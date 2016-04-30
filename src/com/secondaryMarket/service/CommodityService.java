@@ -1,4 +1,4 @@
-package cui.secondaryMarket.service;
+package com.secondaryMarket.service;
 
 import java.util.List;
 

@@ -4,8 +4,7 @@ import com.secondaryMarket.bean.Blame;
 import com.secondaryMarket.bean.User;
 import com.secondaryMarket.dao.UserDao;
 import com.secondaryMarket.factory.DaoFactory;
-
-import cui.secondaryMarket.service.UserService;
+import com.secondaryMarket.service.UserService;
 
 public class UserServiceImpl implements UserService{
 	private UserDao ud;

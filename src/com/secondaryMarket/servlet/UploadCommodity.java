@@ -16,8 +16,8 @@ import javax.servlet.http.Part;
 
 import com.secondaryMarket.bean.Commodity;
 import com.secondaryMarket.factory.ServiceFactory;
+import com.secondaryMarket.service.CommodityService;
 
-import cui.secondaryMarket.service.CommodityService;
 import net.sf.json.JSONObject;
 
 @MultipartConfig

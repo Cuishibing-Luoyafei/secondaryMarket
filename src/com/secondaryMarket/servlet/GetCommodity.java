@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.secondaryMarket.bean.Commodity;
 import com.secondaryMarket.bean.User;
 import com.secondaryMarket.factory.ServiceFactory;
+import com.secondaryMarket.service.CommodityService;
 
-import cui.secondaryMarket.service.CommodityService;
 import net.sf.json.JSONObject;
 @WebServlet(name="GetCommodity",urlPatterns="/GetCommodity")
 public class GetCommodity extends HttpServlet{

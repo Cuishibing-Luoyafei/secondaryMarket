@@ -5,8 +5,7 @@ import java.util.List;
 import com.secondaryMarket.bean.Reply;
 import com.secondaryMarket.dao.ReplyDao;
 import com.secondaryMarket.factory.DaoFactory;
-
-import cui.secondaryMarket.service.ReplayService;
+import com.secondaryMarket.service.ReplayService;
 
 public class ReplayServiceImpl implements ReplayService{
 	private ReplyDao rd;

@@ -1,4 +1,4 @@
-package cui.secondaryMarket.service;
+package com.secondaryMarket.service;
 
 import com.secondaryMarket.bean.Blame;
 import com.secondaryMarket.bean.User;
