@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.secondaryMarket.bean.Commodity;
+import com.secondaryMarket.bean.User;
 import com.secondaryMarket.dao.CommodityDao;
 import com.secondaryMarket.factory.ConnectionFactory;
 
@@ -168,5 +169,11 @@ System.out.println("数据库删除货物时出错！");
 			ConnectionFactory.closed(conn, pstmt);
 		}
 		return flag;
+	}
+
+	@Override
+	public Commodity getCommodityInUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
