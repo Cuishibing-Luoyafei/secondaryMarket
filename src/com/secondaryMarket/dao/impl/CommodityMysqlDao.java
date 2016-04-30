@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.secondaryMarket.bean.Commodity;
 import com.secondaryMarket.bean.User;
@@ -172,8 +174,32 @@ System.out.println("数据库删除货物时出错！");
 	}
 
 	@Override
-	public Commodity getCommodityInUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Commodity> getCommodityInUser(User user) {
+		String sql = "select commodityId from commodity where commodityOwner=?";
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, user.getUserId());
+			rs = ps.executeQuery();
+			rs.last();
+			if(rs.getRow()>1){
+				List<Commodity> commodities = new ArrayList<Commodity>();
+				rs.beforeFirst();
+				while(rs.next()){
+					Integer commodityId = rs.getInt("commodityId");
+					commodities.add(getCommodityInId(commodityId));
+				}
+				return commodities;
+			}else
+				return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}finally{
+			ConnectionFactory.closed(conn, ps, rs);
+		}
 	}
 }
