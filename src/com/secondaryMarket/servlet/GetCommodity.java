@@ -27,24 +27,32 @@ public class GetCommodity extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
-		Boolean isSuccess = false;
-		Boolean isRegister = false;
 		CommodityService cs = ServiceFactory.createCommodityService();
-		JSONObject result = new JSONObject();
-		Integer userId = -1;
-		if(req.getSession().getAttribute("userName")==null){
-			isRegister = false;
+		String isOne = req.getParameter("isOne");
+		if(isOne.equals("true")){
+			String commodityIdStr = req.getParameter("commodityId");
+			Integer commodityId = Integer.parseInt(commodityIdStr);
+			JSONObject result = new JSONObject();
+			result.accumulate("commodity", cs.getCommodityInId(commodityId));
 		}else{
-			isRegister = true;
-			userId = ServiceFactory.createUserService().getUserInName((String)(req.getSession().getAttribute("userName"))).getUserId();
+			Boolean isSuccess = false;
+			Boolean isRegister = false;
+			JSONObject result = new JSONObject();
+			Integer userId = -1;
+			if(req.getSession().getAttribute("userName")==null){
+				isRegister = false;
+			}else{
+				isRegister = true;
+				userId = ServiceFactory.createUserService().getUserInName((String)(req.getSession().getAttribute("userName"))).getUserId();
+			}
+			User user = new User();
+			user.setUserId(userId);
+			List<Commodity> commodities = cs.getCommodityInUser(user);
+			result.accumulate("isSuccess",isSuccess.toString());
+			result.accumulate("isRegister", isRegister.toString());
+			result.accumulate("commodities", commodities);
+			resp.getWriter().write(result.toString());
 		}
-		User user = new User();
-		user.setUserId(userId);
-		List<Commodity> commodities = cs.getCommodityInUser(user);
-		result.accumulate("isSuccess",isSuccess.toString());
-		result.accumulate("isRegister", isRegister.toString());
-		result.accumulate("commodities", commodities);
-		resp.getWriter().write(result.toString());
 	}
 	
 }

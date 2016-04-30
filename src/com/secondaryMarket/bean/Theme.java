@@ -9,7 +9,7 @@ public class Theme {
 	private Timestamp themeTime = null;
 	private Integer themeUserId = -1;
 	private Integer themeCommodityId = -1;
-	private Integer themeIsRead = -1;
+	private Integer themeIsRead = 0;
 	public Integer getThemeId() {
 		return themeId;
 	}
