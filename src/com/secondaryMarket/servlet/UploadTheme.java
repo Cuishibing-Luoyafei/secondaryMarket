@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondaryMarket.bean.Theme;
 import com.secondaryMarket.factory.ServiceFactory;
+import com.secondaryMarket.service.ThemeService;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+
 @WebServlet(name="UploadTheme",urlPatterns="/UploadTheme")
 public class UploadTheme extends  HttpServlet{
 
@@ -28,6 +34,7 @@ public class UploadTheme extends  HttpServlet{
 		String themeContent = req.getParameter("themeContent");
 		Integer commodityId = Integer.parseInt(req.getParameter("commodityId"));
 		Integer userId = -1;
+		ThemeService ts = ServiceFactory.createThemeService();
 		if(req.getSession().getAttribute("userName")==null){
 			isRegister = false;
 		}else{
@@ -37,7 +44,13 @@ public class UploadTheme extends  HttpServlet{
 			theme.setThemeCommodityId(commodityId);
 			theme.setThemeUserId(userId);
 			theme.setThemeContent(themeContent);
+			theme.setThemeTitle(themeTitle);
+			isSuccess = ts.insertTheme(theme);
 		}
+		JSONObject result = new JSONObject();
+		result.accumulate("isSuccess", isSuccess.toString());
+		result.accumulate("isRegister", isRegister.toString());
+		resp.getWriter().write(result.toString());
 	}
 	
 }
