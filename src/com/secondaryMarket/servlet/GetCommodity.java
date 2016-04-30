@@ -41,8 +41,10 @@ public class GetCommodity extends HttpServlet{
 			Integer userId = -1;
 			if(req.getSession().getAttribute("userName")==null){
 				isRegister = false;
+				isSuccess = false;
 			}else{
 				isRegister = true;
+				isSuccess = true;//应该要验证
 				userId = ServiceFactory.createUserService().getUserInName((String)(req.getSession().getAttribute("userName"))).getUserId();
 			}
 			User user = new User();
