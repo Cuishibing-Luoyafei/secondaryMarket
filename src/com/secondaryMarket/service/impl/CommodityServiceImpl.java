@@ -1,6 +1,9 @@
 package com.secondaryMarket.service.impl;
 
+import java.util.List;
+
 import com.secondaryMarket.bean.Commodity;
+import com.secondaryMarket.bean.User;
 import com.secondaryMarket.dao.CommodityDao;
 import com.secondaryMarket.factory.DaoFactory;
 
@@ -33,6 +36,11 @@ public class CommodityServiceImpl implements CommodityService{
 	public boolean deleteCommodity(Commodity commodity) {
 		// TODO Auto-generated method stub
 		return cd.deleteCommodity(commodity);
+	}
+	@Override
+	public List<Commodity> getCommodityInUser(User user) {
+		// TODO Auto-generated method stub
+		return cd.getCommodityInUser(user);
 	}
 	
 }
