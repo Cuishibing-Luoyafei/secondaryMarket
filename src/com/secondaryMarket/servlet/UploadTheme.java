@@ -32,7 +32,7 @@ public class UploadTheme extends  HttpServlet{
 		Boolean isRegister = false;
 		String themeTitle = req.getParameter("themeTitle");
 		String themeContent = req.getParameter("themeContent");
-		Integer commodityId = Integer.parseInt(req.getParameter("commodityId"));
+		Integer commodityId = Integer.parseInt(req.getParameter("themeCommodityId"));
 		Integer userId = -1;
 		ThemeService ts = ServiceFactory.createThemeService();
 		if(req.getSession().getAttribute("userName")==null){
