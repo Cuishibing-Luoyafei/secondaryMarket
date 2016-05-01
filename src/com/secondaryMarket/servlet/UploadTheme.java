@@ -52,10 +52,10 @@ public class UploadTheme extends  HttpServlet{
 		result.accumulate("isRegister", isRegister.toString());
 		resp.getWriter().write(result.toString());
 		if(isSuccess.booleanValue()) {
-			resp.sendRedirect("");
+			resp.sendRedirect("/secondaryMarket/pages/Theme_Pages/showThemeList.html");
 			return;
 		} else {
-			resp.sendRedirect("");
+			resp.sendRedirect("/secondaryMarket/pages/Theme_Pages/publicTheme.html");
 			return;
 		}
 		
