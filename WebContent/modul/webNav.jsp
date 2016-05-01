@@ -12,7 +12,7 @@
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">首页</a></li>
 						<li><a class="text-primary" href="#">关于我们</a></li>
-						<li><a class="text-primary" href="#">论坛</a></li>
+						<li><a class="text-primary" href="/secondaryMarket/pages/Theme_Pages/showThemeList.html">论坛</a></li>
 						<form class="navbar-form navbar-left" role="search">
 							<div class="form-group">
 								<input type="text" class="form-control" placeholder="Search">
