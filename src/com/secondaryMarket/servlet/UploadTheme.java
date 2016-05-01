@@ -51,6 +51,14 @@ public class UploadTheme extends  HttpServlet{
 		result.accumulate("isSuccess", isSuccess.toString());
 		result.accumulate("isRegister", isRegister.toString());
 		resp.getWriter().write(result.toString());
+		if(isSuccess.booleanValue()) {
+			resp.sendRedirect("");
+			return;
+		} else {
+			resp.sendRedirect("");
+			return;
+		}
+		
 	}
 	
 }

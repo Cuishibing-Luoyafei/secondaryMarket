@@ -19,129 +19,49 @@
 
 	<body>
 		<div class="container">
-			<form action="/secondaryMarket/UploadCommodity" method="post" class="form-horizontal" role="form" onsubmit="return checkNotNullValue()" enctype="multipart/form-data">
+			<form action="/secondaryMarket/UploadTheme" method="post" class="form-horizontal" role="form" onsubmit="return checkNotNullValue()">
 				
 			  <div class="form-group">
-			    <label for="commodityName" class="col-sm-2 control-label">商品名称</label>
+			    <label for="themeTitle" class="col-sm-2 control-label">主题</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="commodityName" id="commodityName" placeholder="商品名称">
+			      <input type="text" class="form-control" name="themeTitle" id="themeTitle" placeholder="主题">
 			    </div>
 			  </div>
 			  
+			
 			  <div class="form-group">
-			    <label for="commodityCategary" class="col-sm-2 control-label">商品类型</label>
+			    <label for="themeCommodityId" class="col-sm-2 control-label">商品状态</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="commodityCategary" id="commodityCategary" placeholder="商品类型">
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="commodityCount" class="col-sm-2 control-label">商品数量</label>
-			    <div class="col-sm-10">
-			      <input type="number" class="form-control" name="commodityCount" id="commodityCount" placeholder="商品数量">
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="commodityStatus" class="col-sm-2 control-label">商品状态</label>
-			    <div class="col-sm-10">
-			      	<select name="commodityStatus" id="commodityStatus" class="form-control">
-					  <option value="1">新品上架</option>
-					  <option value="2">热卖中</option>
-					  <option value="3">即将下架</option>
-					  <option value="4">缺货</option>
+			      	<select name="themeCommodityId" id="themeCommodityId" class="form-control">
+					 
 					</select>
 			    </div>
 			  </div>
 			  
-			   <div class="form-group">
-			    <label for="commodityOldNewLevel" class="col-sm-2 control-label">新旧程度</label>
-			    <div class="col-sm-10">
-			      	<select name="commodityOldNewLevel" id="commodityOldNewLevel" class="form-control">
-					  <option value="1">1</option>
-					  <option value="2">2</option>
-					  <option value="3">3</option>
-					  <option value="4">4</option>
-					  <option value="5">5</option>
-					  <option value="6">6</option>
-					  <option value="7">7</option>
-					  <option value="8">8</option>
-					  <option value="9">9</option>
-					  <option value="10">10</option>
-					</select>
-			    </div>
-			  </div>
 			 
-			  <div class="form-group">
-			    <label for="commodityOldPrice" class="col-sm-2 control-label">商品原价</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="commodityOldPrice" id="commodityOldPrice" placeholder="商品原价">
-			    </div>
-			  </div>
 			  
 			  <div class="form-group">
-			    <label for="commodityNewPrice" class="col-sm-2 control-label">商品现价</label>
+			    <label for="themeContent" class="col-sm-2 control-label">内容</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="commodityNewPrice" id="commodityNewPrice" placeholder="商品现价">
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="commodityDownDay" class="col-sm-2 control-label">下架天数</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="commodityDownDay" id="commodityDownDay" placeholder="下架天数">
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="commodityPicture" class="col-sm-2 control-label">上传图片</label>
-			    <div class="col-sm-10">
-			      <input type="file" class="form-control" name="commodityPicture" id="commodityPicture" accept="image/*">
-			    </div>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="commodityDescribe" class="col-sm-2 control-label">商品描述</label>
-			    <div class="col-sm-10">
-			      <textarea class="form-control" name="commodityDescribe" id="commodityDescribe" placeholder="描述"></textarea>
+			      <textarea class="form-control" name="themeContent" id="themeContent" placeholder="内容"></textarea>
 			    </div>
 			  </div>
 			  
 			  
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" id="submitUpload" class="btn btn-block btn-success">确认上传</button>
+			      <button type="submit" id="submitUpload" class="btn btn-block btn-success">确认发布</button>
 			    </div>
 			  </div>
 			</form>
 			<script>
 			
-			/*commodityId          | int(11)      | NO   | PRI | NULL    | auto_increment |
-			| commodityName        | varchar(30)  | NO   |     | NULL    |                |
-			| commodityCategary    | varchar(30)  | NO   |     | NULL    |                |
-			| commodityStatus      | int(11)      | YES  |     | -1      |                |
-			| commodityPicture     | varchar(255) | NO   |     | NULL    |                |
-			| commodityDescribe    | text         | NO   |     | NULL    |                |
-			| commodityCount       | int(11)      | YES  |     | 1       |                |
-			| commodityOldNewLevel | int(11)      | YES  |     | NULL    |                |
-			| commodityOldPrice    | varchar(11)  | YES  |     | NULL    |                |
-			| commodityNewPrice    | varchar(11)  | YES  |     | NULL    |                |
-			| commodityOwner       | int(11)      | YES  |     | NULL    |                |
-			| commodityDownDay     | int(11)      | YES  |     | NUL*/
 			
 				function checkNotNullValue() {
-					var commodityName  = $("#commodityName").val().trim();
-					var commodityCategary = $("#commodityCategary").val().trim();
-					var commodityStatus = $("#commodityStatus").val().trim();
-					var commodityDescribe = $("#commodityDescribe").val().trim();
-					var commodityCount = $("#commodityCount").val().trim();
-					var commodityOldNewLevel = $("#commodityOldNewLevel").val().trim();
-					var commodityOldPrice = $("#commodityOldPrice").val().trim();
-					var commodityNewPrice = $("#commodityNewPrice").val().trim();
-					var commodityDownDay = $("#commodityDownDay").val().trim();
-					var commodityPicture = $("#commodityPicture");
-					if(commodityName!="" && commodityCategary!="" && commodityStatus!="" && commodityDescribe!="" && commodityCount!="" && 
-					commodityOldNewLevel!="" && commodityOldPrice!="" && commodityNewPrice!="" && commodityDownDay!="" && commodityPicture!="") {
+					var themeTitle  = $("#themeTitle").val().trim();
+					var themeContent = $("#themeContent").val().trim();
+					var themeCommodityId = $("#themeCommodityId").val().trim();
+					if(themeTitle!="" && themeContent!="" && themeCommodityId!="") {
 						return true;
 					} else {
 						alert("请填写完整");
@@ -149,12 +69,27 @@
 					}
 					
 				}
-			
-				$("#submitUpload").bind('click', function() {
-					$.getJSON('/secondaryMarket/UploadCommodity', function(data) {
-						//alert(data.isSuccess);
-					});
+				$(document).ready(function() {
+					$.get('/secondaryMarket/GetCommodity?isOne=false', {},function(data) {
+						if(data.isSuccess == "true") {
+							var selectParent = $("#themeCommodityId");
+							for(var i = 0; i < data.commodities.length; i++) {
+								var addDiv = $('<option></option>');
+								addDiv.attr("value", data.commodities[i].commodityId);
+								addDiv.text(data.commodities[i].commodityName)
+								addDiv.appendTo(selectParent);
+							}
+						} else {
+							if(data.isRegister == "true") {
+								alert("加载物品失败！");
+							} else {
+								alert("未登录！请先进行登陆！");
+							}
+						}
+						
+					},"json");
 				});
+			
 			</script>
 		</div>
 	</body>
