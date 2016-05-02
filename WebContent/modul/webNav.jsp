@@ -15,10 +15,16 @@
 						<li><a class="text-primary" href="/secondaryMarket/pages/Theme_Pages/showThemeList.html">论坛</a></li>
 						<form class="navbar-form navbar-left" role="search">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Search">
+								<input type="text" class="form-control" placeholder="Search" id="inputSearch">
 							</div>
-							<button type="submit" class="btn btn-default">搜索商品</button>
+							<button type="submit" class="btn btn-default" onclick="search()">搜索</button>
 						</form>
+						<script>
+							function search() {
+								window.open("/secondaryMarket/pages/Theme_Pages/showSearchThemeList.html?searchText="+$("#inputSearch").val().trim());
+								//window.open("www.baidu.com");
+							}
+						</script>
 
 					</ul>
 					<div class="navbar-form pull-right">

@@ -38,7 +38,7 @@ public class BlameUser extends HttpServlet{
 			blame.setBlameReason(blameReason);
 			blame.setUserId(blameUserId);
 			BlameService bs = ServiceFactory.createBlameService();
-			isSuccess = bs.insertBlame(blame);
+			isSuccess = bs.blameUser(blame, blameUserId);
 		}
 		JSONObject result = new JSONObject();
 		result.accumulate("isSuccess", isSuccess);

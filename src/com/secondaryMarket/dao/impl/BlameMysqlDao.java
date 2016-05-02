@@ -130,7 +130,8 @@ System.out.println("插入封禁表出错！");
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "/" + blame.getBlameReason());
 			pstmt.setInt(2, blame.getBlameId());
-			if(pstmt.executeUpdate() != 1) {
+//System.out.println(blame.getBlameReason() + ":" + blame.getBlameId());
+			if(pstmt.executeUpdate() < 1) {
 System.out.println("更新封禁表出现异常！");
 				flag = false;
 			}

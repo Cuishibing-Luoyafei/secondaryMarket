@@ -6,7 +6,7 @@ import com.secondaryMarket.bean.Theme;
 
 public interface ThemeService {
 	public Theme getThemeInId(Integer themeId);
-	public Theme getThemeInTitle(String themeTitle);
+	public List<Theme> getThemeInTitle(String themeTitle);
 	public List<Theme> getThemes(Integer start,Integer size);
 	public List<Theme> getTopThemes();
 	public boolean insertTheme(Theme theme);

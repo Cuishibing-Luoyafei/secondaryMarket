@@ -48,22 +48,24 @@ public class ThemeMysqlDao implements ThemeDao{
 	}
 
 	@Override
-	public Theme getThemeInTitle(String themeTitle) {
+	public List<Theme> getThemeInTitle(String themeTitle) {
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
-		String sql = "select themeId from theme where themeTitle=?";
+		String sql = "select themeId from theme where themeTitle like ?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		List<Theme> themes = new ArrayList<Theme>();
 		try {
 			ps = connection.prepareStatement(sql);
-			ps.setString(1, themeTitle);
+			ps.setString(1, "%"+themeTitle+"%");
 			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
 				return null;
 			}else{
-				rs.first();
-				Integer themeId = rs.getInt("themeId");
-				return getThemeInId(themeId);
+				rs.beforeFirst();
+				while(rs.next()) {
+					themes.add(getThemeInId(rs.getInt("themeId")));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,6 +75,7 @@ public class ThemeMysqlDao implements ThemeDao{
 			ConnectionFactory.closeStatement(ps);
 			ConnectionFactory.closeConnection(connection);
 		}
+		return themes;
 	}
 
 	@Override

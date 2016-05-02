@@ -19,7 +19,7 @@ public class ThemeServiceImpl implements ThemeService{
 	}
 
 	@Override
-	public Theme getThemeInTitle(String themeTitle) {
+	public List<Theme> getThemeInTitle(String themeTitle) {
 		// TODO Auto-generated method stub
 		return td.getThemeInTitle(themeTitle);
 	}
