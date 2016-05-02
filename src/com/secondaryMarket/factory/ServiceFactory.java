@@ -1,9 +1,11 @@
 package com.secondaryMarket.factory;
 
+import com.secondaryMarket.service.BlameService;
 import com.secondaryMarket.service.CommodityService;
 import com.secondaryMarket.service.ReplayService;
 import com.secondaryMarket.service.ThemeService;
 import com.secondaryMarket.service.UserService;
+import com.secondaryMarket.service.impl.BlameServiceImpl;
 import com.secondaryMarket.service.impl.CommodityServiceImpl;
 import com.secondaryMarket.service.impl.ReplayServiceImpl;
 import com.secondaryMarket.service.impl.ThemeServiceImpl;
@@ -21,5 +23,8 @@ public class ServiceFactory {
 	}
 	public static CommodityService createCommodityService(){
 		return new CommodityServiceImpl();
+	}
+	public static BlameService createBlameService(){
+		return new BlameServiceImpl();
 	}
 }

@@ -25,5 +25,9 @@ public interface UserDao {
 	 * */
 	public boolean insertUser(User user);
 	public boolean updateUser(User user);
+	/**
+	 * 投诉一个用户
+	 * @param blame 投诉实体,当中包含了要投诉用户的Id以及投诉的原因
+	 * */
 	public boolean blameUser(Blame blame);
 }

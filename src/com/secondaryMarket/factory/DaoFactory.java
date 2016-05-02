@@ -1,9 +1,11 @@
 package com.secondaryMarket.factory;
 
+import com.secondaryMarket.dao.BlameDao;
 import com.secondaryMarket.dao.CommodityDao;
 import com.secondaryMarket.dao.ReplyDao;
 import com.secondaryMarket.dao.ThemeDao;
 import com.secondaryMarket.dao.UserDao;
+import com.secondaryMarket.dao.impl.BlameMysqlDao;
 import com.secondaryMarket.dao.impl.CommodityMysqlDao;
 import com.secondaryMarket.dao.impl.ReplyMysqlDao;
 import com.secondaryMarket.dao.impl.ThemeMysqlDao;
@@ -21,5 +23,8 @@ public class DaoFactory {
 	}
 	public static ReplyDao createReplyDao(){
 		return new ReplyMysqlDao();
+	}
+	public static BlameDao createBlameDao(){
+		return new BlameMysqlDao();
 	}
 }
