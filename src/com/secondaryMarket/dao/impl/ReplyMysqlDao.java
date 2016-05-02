@@ -126,7 +126,7 @@ System.out.println("进行回复的list的获取，出现异常错误！");
 			pstmt.setInt(1, reply.getReplyThemeId());
 			pstmt.setInt(2, reply.getReplyUserId());
 			pstmt.setString(3, reply.getReplyContent());
-			pstmt.setTimestamp(4, reply.getReplyTime());
+			pstmt.setTimestamp(4, reply.getTimeStamp());
 			if(pstmt.executeUpdate() != 1) {
 				flag = false;
 System.out.println("往数据库reply表中，插入回复的数据时，出错！");

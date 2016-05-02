@@ -42,9 +42,18 @@ public class Reply {
 	public void setReplyUserId(Integer replyUserId) {
 		this.replyUserId = replyUserId;
 	}
-	public Timestamp getReplyTime() {
-		if(replyTime == null)
+	
+	public String getReplyTime() {
+		if(replyTime != null)
+			return replyTime.toString();
+		else {
 			replyTime = new Timestamp(System.currentTimeMillis());
+			return replyTime.toString();
+		}
+	}
+	
+	public Timestamp getTimeStamp() {
+		getReplyTime();
 		return replyTime;
 	}
 	public void setReplyTime(Timestamp replyTime) {

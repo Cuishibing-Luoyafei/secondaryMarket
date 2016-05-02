@@ -16,6 +16,7 @@ import com.secondaryMarket.factory.ServiceFactory;
 import com.secondaryMarket.service.ReplayService;
 import com.secondaryMarket.service.UserService;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @WebServlet(name="GetReply",urlPatterns="/GetReply")
@@ -36,6 +37,7 @@ public class GetReply extends HttpServlet {
 		String themeId = request.getParameter("themeId");
 //System.out.println(themeId);
 		JSONObject result = new JSONObject();
+		//JSONArray jsonarray = new JSONArray();
 		if(themeId != null) {
 			ReplayService rs = ServiceFactory.createReplayService();
 			List<Reply> replys = rs.getReplysInThemeId(Integer.valueOf(themeId));
