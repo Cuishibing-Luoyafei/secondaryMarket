@@ -23,8 +23,15 @@ public class UserRegister extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String userName = req.getParameter("userName");
-		String password = req.getParameter("password");
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
+		String userNameLuan = req.getParameter("userName");
+		String passwordLuan = req.getParameter("password");
+		String userName = new String(userNameLuan.getBytes("ISO-8859-1"), "UTF-8");
+		String password = new String(passwordLuan.getBytes("ISO-8859-1"), "UTF-8");
+		
+//System.out.println("测试用户注册乱码问题：" + userName + ":" + password);
 		UserService userService = ServiceFactory.createUserService();
 		JSONObject result = new JSONObject();
 		User user = userService.getUserInName(userName);
