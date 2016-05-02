@@ -9,4 +9,5 @@ public interface ReplyDao {
 	public List<Reply> getReplys(Integer start,Integer size);
 	public boolean insertReply(Reply reply);
 	public boolean deleteReply(Reply reply);
+	public List<Reply> getReplysInThemeId(Integer themeId);
 }

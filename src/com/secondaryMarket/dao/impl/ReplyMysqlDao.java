@@ -22,6 +22,37 @@ public class ReplyMysqlDao implements ReplyDao {
 	 * */
 	
 	@Override
+	public List<Reply> getReplysInThemeId(Integer themeId) {
+		// TODO Auto-generated method stub
+		Connection conn = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from reply where replyThemeId = ?";
+		List<Reply> replys = new ArrayList<Reply>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, themeId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Reply reply = new Reply();
+				reply.setReplyId(rs.getInt("replyId"));
+				reply.setReplyThemeId(rs.getInt("replyThemeId"));
+				reply.setReplyUserId(rs.getInt("replyUserId"));
+				reply.setReplyContent(rs.getString("replyContent"));
+				reply.setReplyTime(rs.getTimestamp("replyTime"));
+//System.out.println(rs.getTimestamp("replyTime"));
+				replys.add(reply);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.closed(conn, pstmt, rs);
+		}
+		
+		return replys;
+	}
+
+	@Override
 	public Reply getReplyInId(Integer replyId) {
 		// TODO Auto-generated method stub
 		Reply reply = new Reply();

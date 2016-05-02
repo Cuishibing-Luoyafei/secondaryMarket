@@ -119,11 +119,68 @@
 			    </div>
 			  </div>
 			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label"></label>
+				 <div class="col-sm-10">
+				 	<div class="col-sm-6">
+				      <button class="form-control btn-primary" name="getReply" id="getReply">查看回复</button>
+				    </div>
+				    <div class="col-sm-6">
+				      <button class="form-control btn-primary" name="toReply" id="toReply">进行回复</button>
+				    </div>
+				 </div>
+			</div>
+			
+			
+			<table class="table table-hover" id="table" style="visibility: hidden;">
+				<thead>
+					<tr>
+						<th>回复内容</th>
+						<th>回复时间</th>
+						<th>回复人</th>
+					</tr>
+				</thead>
+				<tbody id="getReplyItems">
+				</tbody>
+			</table>
+				<!-- 内容，回复时间，回复人名称 -->
 		</div>
 			<script>
 			
 				$(document).ready(function() {
 					getThemes();
+					
+					$("#getReply").bind('click', function() {
+						$.get('/secondaryMarket/GetReply',{
+							themeId : themeId
+						},function(data, textStatus) {
+							if(textStatus == "success") {
+								$("#table").attr("style", "visibility: visible");
+								for(var i = 0; i < data.replys.length; i++) {
+									var tbody = $('<tr></tr>');
+									var td = $('<td></td>');
+									td.text(data.replys[i].replyContent);
+									td.appendTo(tbody);
+									var td1 = $('<td></td>');
+									td1.text(data.replys[i].replyTime);
+									td1.appendTo(tbody);
+									
+									var td2 = $('<td></td>');
+									td2.text(data.users[i].userNackName);
+									td2.appendTo(tbody);
+									
+									tbody.appendTo($("#getReplyItems"));
+								}
+							} else {
+								alert("请刷新重试！");
+							}
+						}, "json");
+					});
+					
+					$("#toReply").bind('click', function() {
+						alert("toReply");
+					});
 				});
 				
 				function getThemes() {
