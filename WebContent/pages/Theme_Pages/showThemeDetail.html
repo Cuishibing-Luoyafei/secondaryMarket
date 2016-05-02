@@ -34,7 +34,7 @@
 			    		<span class="glyphicon glyphicon-star"></span>
 			    		<span class="glyphicon glyphicon-star"></span>
 			    	</button>
-			    	<a href="" class="btn btn-danger" style="float: right;">投诉</a>
+			    	<button class="btn btn-danger" data-toggle="modal" data-target="#myModalBlame" style="float: right;">投诉</button>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -115,6 +115,13 @@
 			    </div>
 			  </div>
 			  
+			   <div class="form-group">
+			    <label for="commodityDescribe" class="col-sm-2 control-label">商品描述</label>
+			    <div class="col-sm-10">
+			      <label class="form-control" name="commodityDescribe" id="commodityDescribe">商品描述</label>
+			    </div>
+			  </div>
+			  
 			  <div class="form-group">
 			    <label for="commodityPicture" class="col-sm-2 control-label">物品图片</label>
 			    <div class="col-sm-10">
@@ -122,12 +129,6 @@
 			    </div>
 			  </div>
 			  
-			  <div class="form-group">
-			    <label for="commodityDescribe" class="col-sm-2 control-label">商品描述</label>
-			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityDescribe" id="commodityDescribe">商品描述</label>
-			    </div>
-			  </div>
 			</div>
 			
 			
@@ -149,6 +150,25 @@
 				    </div>
 				  </div>
 				</div>
+				
+				<div class="modal fade" id="myModalBlame" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title" id="myModalLabel">投诉原因</h4>
+				      </div>
+				      <div class="modal-body">
+				      	<textarea id="blameReason" name="blameReason" class="form-control" placeholder="请输入" rows="3"></textarea>
+				      
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				        <button type="button" class="btn btn-primary" name="blameUser" id="blameUser">发送</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 						
 			
 			
@@ -163,10 +183,6 @@
 				<tbody id="getReplyItems">
 				</tbody>
 			</table>
-				<!-- 内容，回复时间，回复人名称 -->
-				
-				
-				
 				
 			<div class="form-group">
 				 <div class="col-sm-12">
@@ -179,10 +195,12 @@
 		</div>
 			<script>
 				var themeId;
+				
 				$(document).ready(function() {
 					getThemes();
 					getReplys();
 					sendReplyContent();
+					
 				});
 				
 				function sendReplyContent() {
@@ -242,21 +260,59 @@
 					},function(data, textStatus) {
 						if(textStatus == "success") {
 							//alert(data.theme.themeTitle);
-							
 							$("#userName").text(data.user.userNackName);
 							$("#themeTitle").text(data.theme.themeTitle);
 							$("#themeContent").text(data.theme.themeContent);
 							$("#themeTime").text(data.theme.themeTime);
 							
+							$("#blameUser").bind('click', function() {
+								//alert($("#blameReason").val().trim());
+								//alert(data.user.userNackName);
+								$.get('/secondaryMarket/BlameUser',{
+									blameReason : $("#blameReason").val().trim(),
+									userName : data.user.userNackName
+								}, function(data, textStatus) {
+									if(textStatus == "success") {
+										if(data.isSuccess == "true") {
+											alert("投诉成功！");
+											$("#myModalBlame").modal("hide");
+										} else {
+											if(data.isRegister == "false") {
+												alert("请登录后操作！");
+											} else {
+												alert("请刷新重试！");	
+											}
+											$("#myModalBlame").modal("hide");
+										}
+									} else {
+										alert("请刷新重试！");
+									}
+								},"json");
+							});
+							
+							
 							$("#commodityName").text(data.commodity.commodityName);
 							$("#commodityCategary").text(data.commodity.commodityCategary);
-							$("#commodityStatus").text(data.commodity.commodityStatus);
+							switch(data.commodity.commodityStatus) {
+							case 1:
+								$("#commodityStatus").text("新品上架");
+								break;
+							case 2:
+								$("#commodityStatus").text("热卖中");
+								break;
+							case 3:
+								$("#commodityStatus").text("即将下架");
+								break;
+							case 4:
+								$("#commodityStatus").text("缺货");
+								break;
+							}
 							$("#commodityCount").text(data.commodity.commodityCount);
 							$("#commodityDescribe").text(data.commodity.commodityDescribe);
-							$("#commodityOldNewLevel").text(data.commodity.commodityOldNewLevel);
-							$("#commodityOldPrice").text(data.commodity.commodityOldPrice);
-							$("#commodityNewPrice").text(data.commodity.commodityNewPrice);
-							$("#commodityDownDay").text(data.commodity.commodityDownDay);
+							$("#commodityOldNewLevel").text(data.commodity.commodityOldNewLevel+"成新");
+							$("#commodityOldPrice").text(data.commodity.commodityOldPrice+"元");
+							$("#commodityNewPrice").text(data.commodity.commodityNewPrice+"元");
+							$("#commodityDownDay").text(data.commodity.commodityDownDay+"天");
 							$("#commodityPicture").attr("src", "/secondaryMarket/img/"+data.commodity.commodityPicture);
 							
 							

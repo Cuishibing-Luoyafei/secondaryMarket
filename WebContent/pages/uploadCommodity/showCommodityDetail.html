@@ -24,56 +24,63 @@
 			  <div class="form-group">
 			    <label for="commodityName" class="col-sm-2 control-label">商品名称</label>
 			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityName" id="commodityName">商品名称</label>
+			      <label class="form-control" name="commodityName" id="commodityName"></label>
 			    </div>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="commodityCategary" class="col-sm-2 control-label">商品类型</label>
 			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityCategary" id="commodityCategary">商品类型</label>
+			      <label class="form-control" name="commodityCategary" id="commodityCategary"></label>
 			    </div>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="commodityCount" class="col-sm-2 control-label">商品数量</label>
 			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityCount" id="commodityCount">商品数量</label>
+			      <label class="form-control" name="commodityCount" id="commodityCount"></label>
 			    </div>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="commodityStatus" class="col-sm-2 control-label">商品状态</label>
 			    <div class="col-sm-10">
-			      	<label name="commodityStatus" id="commodityStatus" class="form-control">新品上架</label>
+			      	<label name="commodityStatus" id="commodityStatus" class="form-control"></label>
 			    </div>
 			  </div>
 			  
 			   <div class="form-group">
 			    <label for="commodityOldNewLevel" class="col-sm-2 control-label">新旧程度</label>
 			    <div class="col-sm-10">
-			      	<label name="commodityOldNewLevel" id="commodityOldNewLevel" class="form-control">新旧程度</label>
+			      	<label name="commodityOldNewLevel" id="commodityOldNewLevel" class="form-control"></label>
 			    </div>
 			  </div>
 			 
 			  <div class="form-group">
 			    <label for="commodityOldPrice" class="col-sm-2 control-label">商品原价</label>
 			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityOldPrice" id="commodityOldPrice">商品原价</label>
+			      <label class="form-control" name="commodityOldPrice" id="commodityOldPrice"></label>
 			    </div>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="commodityNewPrice" class="col-sm-2 control-label">商品现价</label>
 			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityNewPrice" id="commodityNewPrice">商品现价</label>
+			      <label class="form-control" name="commodityNewPrice" id="commodityNewPrice"></label>
 			    </div>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="commodityDownDay" class="col-sm-2 control-label">下架天数</label>
 			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityDownDay" id="commodityDownDay">下架天数</label>
+			      <label class="form-control" name="commodityDownDay" id="commodityDownDay"></label>
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="commodityDescribe" class="col-sm-2 control-label">商品描述</label>
+			    <div class="col-sm-10">
+			      <label class="form-control" name="commodityDescribe" id="commodityDescribe"></label>
 			    </div>
 			  </div>
 			  
@@ -84,19 +91,6 @@
 			    </div>
 			  </div>
 			  
-			  <div class="form-group">
-			    <label for="commodityDescribe" class="col-sm-2 control-label">商品描述</label>
-			    <div class="col-sm-10">
-			      <label class="form-control" name="commodityDescribe" id="commodityDescribe">描述</label>
-			    </div>
-			  </div>
-			  
-			  
-			  <!-- <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" id="submitUpload" class="btn btn-block btn-success">确认上传</button>
-			    </div>
-			  </div> -->
 			</form>
 			<script>
 			$(document).ready(function() {
@@ -114,12 +108,26 @@
 						$("#commodityName").text(data.commodity.commodityName);
 						$("#commodityCategary").text(data.commodity.commodityCategary);
 						$("#commodityStatus").text(data.commodity.commodityStatus);
+						switch(data.commodity.commodityStatus) {
+						case 1:
+							$("#commodityStatus").text("新品上架");
+							break;
+						case 2:
+							$("#commodityStatus").text("热卖中");
+							break;
+						case 3:
+							$("#commodityStatus").text("即将下架");
+							break;
+						case 4:
+							$("#commodityStatus").text("缺货");
+							break;
+						}
 						$("#commodityCount").text(data.commodity.commodityCount);
 						$("#commodityDescribe").text(data.commodity.commodityDescribe);
-						$("#commodityOldNewLevel").text(data.commodity.commodityOldNewLevel);
-						$("#commodityOldPrice").text(data.commodity.commodityOldPrice);
-						$("#commodityNewPrice").text(data.commodity.commodityNewPrice);
-						$("#commodityDownDay").text(data.commodity.commodityDownDay);
+						$("#commodityOldNewLevel").text(data.commodity.commodityOldNewLevel+"成新");
+						$("#commodityOldPrice").text(data.commodity.commodityOldPrice+"元");
+						$("#commodityNewPrice").text(data.commodity.commodityNewPrice+"元");
+						$("#commodityDownDay").text(data.commodity.commodityDownDay+"天");
 						$("#commodityPicture").attr("src", "/secondaryMarket/img/"+data.commodity.commodityPicture);
 					} else {
 						alert("请刷新重试！");

@@ -27,13 +27,17 @@ public class BlameUser extends HttpServlet{
 		resp.setCharacterEncoding("UTF-8");
 		Boolean isSuccess = false;
 		Boolean isRegister = false;
+//System.out.println(req.getParameter("userName"));
 		if(req.getSession().getAttribute("userName")==null){
 			isSuccess = false;
 			isRegister = false;
 		}else{
 			isRegister = true;
-			Integer blameUserId = Integer.valueOf(req.getParameter("userId"));
-			String blameReason = req.getParameter("blameReason");
+
+			Integer blameUserId = ServiceFactory.createUserService().getUserInName(req.getParameter("userName")).getUserId();
+
+			String blameReasonLuan = req.getParameter("blameReason");
+			String blameReason = new String(blameReasonLuan.getBytes("ISO-8859-1"), "UTF-8");
 			Blame blame = new Blame();
 			blame.setBlameReason(blameReason);
 			blame.setUserId(blameUserId);
@@ -41,8 +45,8 @@ public class BlameUser extends HttpServlet{
 			isSuccess = bs.blameUser(blame, blameUserId);
 		}
 		JSONObject result = new JSONObject();
-		result.accumulate("isSuccess", isSuccess);
-		result.accumulate("isRegister", isRegister);
+		result.accumulate("isSuccess", isSuccess.toString());
+		result.accumulate("isRegister", isRegister.toString());
 		resp.getWriter().write(result.toString());
 	}
 	
