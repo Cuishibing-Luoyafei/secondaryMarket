@@ -15,11 +15,12 @@
 		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
 		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
 		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+		<script src="../../assets/jQuery/jquery.form.js"></script>
 	</head>
 
 	<body>
 		<div class="container">
-			<form action="/secondaryMarket/UploadCommodity" method="post" class="form-horizontal" role="form" onsubmit="return checkNotNullValue()" enctype="multipart/form-data">
+			<form id="commodityForm" action="/secondaryMarket/UploadCommodity" method="post" class="form-horizontal" role="form" onsubmit="return checkNotNullValue()" enctype="multipart/form-data">
 				
 			  <div class="form-group">
 			    <label for="commodityName" class="col-sm-2 control-label">商品名称</label>

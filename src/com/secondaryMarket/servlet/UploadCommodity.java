@@ -77,7 +77,12 @@ public class UploadCommodity extends HttpServlet{
 		}
 		result.accumulate("isSuccess", isSuccess.toString());
 		result.accumulate("isRegister", isRegister.toString());
-		resp.getWriter().write(result.toString());
+		if(isSuccess){
+			resp.sendRedirect("/secondaryMarket/pages/uploadCommodity/showCommodityList.html");
+			return;
+		}else{
+			resp.sendRedirect("/secondaryMarket/pages/uploadCommodity/uploadCommodity.html");
+		}
 		
 		
 	}

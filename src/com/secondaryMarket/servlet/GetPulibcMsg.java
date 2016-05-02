@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebServlet(name="/GetPulibcMsg",urlPatterns="/GetPulibcMsg")
 public class GetPulibcMsg extends HttpServlet{
-
+/**
+ * 推送消息servlet
+ * 
+ * */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req,resp);
@@ -18,7 +21,8 @@ public class GetPulibcMsg extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		resp.getWriter().write("hello world");
+		resp.getWriter().write("hello worldd");
+		
 	}
 	
 }
