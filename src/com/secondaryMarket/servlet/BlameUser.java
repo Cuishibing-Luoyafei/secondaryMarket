@@ -31,6 +31,7 @@ public class BlameUser extends HttpServlet{
 			isSuccess = false;
 			isRegister = false;
 		}else{
+			isRegister = true;
 			Integer blameUserId = Integer.valueOf(req.getParameter("userId"));
 			String blameReason = req.getParameter("blameReason");
 			Blame blame = new Blame();
