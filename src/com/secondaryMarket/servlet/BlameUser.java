@@ -42,6 +42,7 @@ public class BlameUser extends HttpServlet{
 		JSONObject result = new JSONObject();
 		result.accumulate("isSuccess", isSuccess);
 		result.accumulate("isRegister", isRegister);
+		resp.getWriter().write(result.toString());
 	}
 	
 }
