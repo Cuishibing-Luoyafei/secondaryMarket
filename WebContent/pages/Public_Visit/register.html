@@ -68,7 +68,7 @@
 	function checkdata() {
 		
 		if($("#userName").val().trim()!="" && $("#password").val().trim()!="" && $("#repassword").val().trim()!="" && $("#password").val().trim()==$("#repassword").val().trim()) {
-			$.get("/secondaryMarket/UserRegister",{
+			$.post("/secondaryMarket/UserRegister",{
 				userName : $("#userName").val().trim(),
 				password : $("#password").val().trim()
 			}, function(data, textStatus) {

@@ -30,8 +30,10 @@ public class UserLogin extends HttpServlet{
 		Boolean isRegister = false;
 		Boolean isSb = false;
 		Boolean isRightPassword = false;
-		String userName = req.getParameter("userName");
-		String userPassword = req.getParameter("password");
+		String userNameLuan = req.getParameter("userName");
+		String userPasswordLuan = req.getParameter("password");
+		String userName = new String(userNameLuan.getBytes("ISO-8859-1"), "UTF-8");
+		String userPassword = new String(userPasswordLuan.getBytes("ISO-8859-1"), "UTF-8");
 //System.out.println("Username:" + userName);
 		UserService userService = ServiceFactory.createUserService();
 		BlameService bs = ServiceFactory.createBlameService();

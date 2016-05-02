@@ -23,7 +23,13 @@ public class ReplayServiceImpl implements ReplayService{
 		// TODO Auto-generated method stub
 		return rd.getReplys(start, size);
 	}
-
+	
+	
+	@Override
+	public List<Reply> getReplysInThemeId(Integer themeId) {
+		// TODO Auto-generated method stub
+		return rd.getReplysInThemeId(themeId);
+	}
 	@Override
 	public boolean insertReply(Reply reply) {
 		// TODO Auto-generated method stub
