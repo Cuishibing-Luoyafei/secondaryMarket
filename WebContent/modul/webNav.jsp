@@ -34,6 +34,7 @@
 						%>
 							<a class="btn btn-primary" href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">个人中心</a>
 							<a class="btn btn-primary"  href="/secondaryMarket/pages/Theme_Pages/publicTheme.html">发布主题</a>
+							<a class="btn btn-primary" href="/secondaryMarket/pages/uploadCommodity/showCommodityList.html">查看自己的物品</a>
 							<a class="btn btn-default" href="/secondaryMarket/LoginOut">注销</a>
 						<%
 							}

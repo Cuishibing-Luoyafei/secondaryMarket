@@ -80,7 +80,7 @@
 			  <div class="form-group">
 			    <label for="commodityPicture" class="col-sm-2 control-label">物品图片</label>
 			    <div class="col-sm-10">
-			      <img src="../../assets/img/index/book.jpg" style="width: 100%;height: 300px;" class="form-control" name="commodityPicture" id="commodityPicture">
+			      <img src="" alt="图片加载失败" style="width: 100%;height: 300px;" class="form-control" name="commodityPicture" id="commodityPicture">
 			    </div>
 			  </div>
 			  
@@ -99,9 +99,38 @@
 			  </div> -->
 			</form>
 			<script>
-				$(document).ready(function() {
-					//alert($("#commodityName").text().trim().length);
-				});
+			$(document).ready(function() {
+				getCommodity();
+			});
+			
+			function getCommodity() {
+				commodityId = getCommodityId(window.location.href);
+				$.get('/secondaryMarket/GetCommodity',{
+					isOne : true,
+					commodityId : commodityId
+				},function(data, textStatus) {
+					if(textStatus == "success") {
+						//alert(data.commodity.commodityName);
+						$("#commodityName").text(data.commodity.commodityName);
+						$("#commodityCategary").text(data.commodity.commodityCategary);
+						$("#commodityStatus").text(data.commodity.commodityStatus);
+						$("#commodityCount").text(data.commodity.commodityCount);
+						$("#commodityDescribe").text(data.commodity.commodityDescribe);
+						$("#commodityOldNewLevel").text(data.commodity.commodityOldNewLevel);
+						$("#commodityOldPrice").text(data.commodity.commodityOldPrice);
+						$("#commodityNewPrice").text(data.commodity.commodityNewPrice);
+						$("#commodityDownDay").text(data.commodity.commodityDownDay);
+						$("#commodityPicture").attr("src", "/secondaryMarket/img/"+data.commodity.commodityPicture);
+					} else {
+						alert("请刷新重试！");
+					}
+				},"json");
+			}
+			function getCommodityId(href) {
+				var commodityIdStr = href.split("&")[1];
+				var commodityId = commodityIdStr.split("=")[1];
+				return commodityId;
+			}
 			</script>
 		</div>
 	</body>

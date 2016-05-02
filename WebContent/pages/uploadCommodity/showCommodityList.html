@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>商品展示列表</title>
+
+		<link href="../../assets/bootstrap-3.3.5/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+		<link href="../../assets/bootstrap-3.3.5/docs/examples/signin/signin.css" rel="stylesheet">
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
+		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>商品名称</th>
+						<th>商品类型</th>
+						<th>商品数量</th>
+						<th>商品现价</th>
+						<th>下架天数</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+				</tbody>
+			</table>
+			<div align="center">
+				<nav>
+				  <ul class="pagination">
+				    <!-- <li class="disabled"><a href="#">&laquo;</a></li> -->
+				    <li><a class="pageNum" name="pageNum">1</a></li>
+				    <!-- <li><a class="pageNum" name="pageNum">2</a></li>
+				    <li><a class="pageNum" name="pageNum">3</a></li>
+				    <li><a class="pageNum" name="pageNum">4</a></li>
+				    <li><a class="pageNum" name="pageNum">5</a></li> -->
+				    <!-- <li><a class="pageNum" name="pageNum">&raquo;</a></li> -->
+				  </ul>
+				</nav>
+			</div>
+			<script>
+				var pageNumPage = 0;
+				$(document).ready(function() {
+					getThemes();
+					$("ul .pageNum").click(function(e) {
+						 e.preventDefault();
+						 pageNumPage = ($(this).text()-1) * 8;
+						// alert(pageNumPage);
+						 $("#tbody").empty();
+						 getThemes();
+					});
+				});
+				
+				function getThemes() {
+					$.get('/secondaryMarket/GetCommodity',{
+						isOne : false
+					},function(data, textStatus) {
+						if(textStatus == "success") {
+							//alert(data.commodities.length);
+							for(var i = 0; i < data.commodities.length; i++) {
+								var tbody = $('<tr></tr>');
+								var td = $('<td></td>');
+								var a = $('<a></a>')
+								a.attr("href", "/secondaryMarket/pages/uploadCommodity/showCommodityDetail.html?isOne=true&CommodityId="+data.commodities[i].commodityId);
+								a.text(data.commodities[i].commodityName);
+								a.appendTo(td);
+								td.appendTo(tbody);
+								
+								var td1 = $('<td></td>');
+								td1.text(data.commodities[i].commodityCategary);
+								td1.appendTo(tbody);
+								
+								var td2 = $('<td></td>');
+								td2.text(data.commodities[i].commodityCount);
+								td2.appendTo(tbody);
+								
+								var td3 = $('<td></td>');
+								td3.text(data.commodities[i].commodityNewPrice);
+								td3.appendTo(tbody);
+								
+								var td4 = $('<td></td>');
+								td4.text(data.commodities[i].commodityDownDay);
+								td4.appendTo(tbody);
+								
+								tbody.appendTo($("#tbody"));
+							}
+						} else {
+							alert("请刷新重试！");
+						}
+					},"json");
+					
+					
+				}
+				
+			</script>
+		</div>
+	</body>
+</html>

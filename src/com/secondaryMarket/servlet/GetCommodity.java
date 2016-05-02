@@ -30,10 +30,12 @@ public class GetCommodity extends HttpServlet{
 		CommodityService cs = ServiceFactory.createCommodityService();
 		String isOne = req.getParameter("isOne");
 		if(isOne.equals("true")){
+//System.out.println(req.getParameter("commodityId"));
 			String commodityIdStr = req.getParameter("commodityId");
 			Integer commodityId = Integer.parseInt(commodityIdStr);
 			JSONObject result = new JSONObject();
 			result.accumulate("commodity", cs.getCommodityInId(commodityId));
+			resp.getWriter().write(result.toString());
 		}else{
 			Boolean isSuccess = false;
 			Boolean isRegister = false;
