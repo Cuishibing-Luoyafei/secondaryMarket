@@ -34,7 +34,8 @@ public class UploadReply extends HttpServlet{
 			isRegister = true;
 			userId = ServiceFactory.createUserService().getUserInName((String)req.getSession().getAttribute("userName")).getUserId();
 			Integer replyThemeId = Integer.parseInt(req.getParameter("replyThemeId"));
-			String replyContent = req.getParameter("replyContent");
+			String replyContentLuan = req.getParameter("replyContent");
+			String replyContent = new String(replyContentLuan.getBytes("ISO-8859-1"), "UTF-8");
 			ReplayService rs = ServiceFactory.createReplayService();
 			Reply reply = new Reply();
 			reply.setReplyUserId(userId);
