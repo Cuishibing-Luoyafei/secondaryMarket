@@ -16,7 +16,7 @@ import com.secondaryMarket.service.PublicMsgService;
 import com.secondaryMarket.service.UserService;
 
 import net.sf.json.JSONObject;
-@WebServlet(name="/GetPulibcMsg",urlPatterns="/GetPulibcMsg")
+@WebServlet(name="/PulibcMsg",urlPatterns="/PulibcMsg")
 public class PulibcMsg extends HttpServlet{
 /**
  * 推送消息相关的操作
@@ -43,12 +43,14 @@ public class PulibcMsg extends HttpServlet{
 		}else{//登陆了
 			String userName = (String)req.getSession().getAttribute("userName");
 			User user = us.getUserInName(userName);
+			isRegister = true;
 			if(user.getUserRole()!=1){//不是管理员
 				isSuccess = false;
 				isAdmin = false;
 			}else{//是管理员
 				PublicMsgService pms = ServiceFactory.createPublicMsgService();
 				String status = req.getParameter("status");
+				isAdmin = true;
 				switch(status){
 					case "1":{//添加一个publicMsg
 						String publicMsgThemeLuan = req.getParameter("publicMsgTheme");
@@ -61,6 +63,7 @@ public class PulibcMsg extends HttpServlet{
 						isSuccess = pms.insertPublicMsg(p);
 					}break;
 					case "2":{//删除一个publicMsg,需要它的Id
+						//System.out.println(req.getParameter("publicMsgId"));
 						Integer publicMsgId = Integer.valueOf(req.getParameter("publicMsgId"));
 						PublicMsg p = new PublicMsg();p.setPublicMsgId(publicMsgId);
 						isSuccess = pms.deletePublicMsg(p);

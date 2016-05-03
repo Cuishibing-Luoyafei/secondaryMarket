@@ -112,3 +112,16 @@ create table blame (
 	blameCount int default 0,
 	blameReason text
 )
+
+/**
+ * Integer publicMsgId = -1;
+	String publicMsgTheme = "";
+	String publicMsgContent = "";
+	Timestamp publicMsgTime = null;
+ * */
+create table publicMsg (
+	publicMsgId int primary key auto_increment,
+	publicMsgTheme varchar(255) not null,
+	publicMsgContent text not null,
+	publicMsgTime datetime default now()
+);

@@ -31,7 +31,64 @@
 			    </div>
 			    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 			      <div class="panel-body">
-			        <textarea id="blameReason" name="blameReason" class="form-control" placeholder="请输入" rows="3"></textarea>
+			      
+			      <table class="table table-hover">
+					<thead>
+						<tr>
+							<th>标题</th>
+							<th>内容</th>
+							<th>创建时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+					</tbody>
+				</table>
+			      
+			      
+			      
+			    <!--   
+			       <div class="form-group">
+				    <label for="publicMsgThemeShow" class="col-sm-2 control-label">标题</label>
+				    <div class="col-sm-10">
+				      <label class="form-control" name="themeTitle" id="publicMsgThemeShow">标题</label>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="publicMsgContentShow" class="col-sm-2 control-label">内容</label>
+				    <div class="col-sm-10">
+				      <label class="form-control" name="publicMsgContentShow" id="publicMsgContentShow">内容</label>
+				    </div>
+				  </div>
+				   <div class="form-group">
+				    <label for="publicMsgTimeShow" class="col-sm-2 control-label">创建时间</label>
+				    <div class="col-sm-10">
+				      <label class="form-control" name="publicMsgTimeShow" id="publicMsgTimeShow">创建时间</label>
+				    </div>
+				  </div>
+			       -->
+			      
+			      <div class="form-horizontal" role="form">
+					  <div class="form-group">
+					    <label for="publicMsgTheme" class="col-sm-2 control-label">标题</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" id="publicMsgTheme" placeholder="推送标题">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="publicMsgContent" class="col-sm-2 control-label">内容</label>
+					    <div class="col-sm-10">
+					     <textarea id="publicMsgContent" name="publicMsgContent" class="form-control" placeholder="请输入" rows="3"></textarea>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <button type="submit" class="btn btn-default" id="sendMsg" onclick="sendMsgToServlet()">发送</button>
+					    </div>
+					  </div>
+					</div>
+						
+			      
 			      </div>
 			    </div>
 			  </div>
@@ -67,44 +124,108 @@
 		
 		</div>
 			<script>
-				var pageNumPage = 0;
 				$(document).ready(function() {
-					getThemes();
-					$("ul .pageNum").click(function(e) {
-						 e.preventDefault();
-						 pageNumPage = ($(this).text()-1) * 8;
-						// alert(pageNumPage);
-						 $("#tbody").empty();
-						 getThemes();
-					});
+					getMessageAll();
 				});
+				function sendMsgToServlet() {
+					var publicMsgThemePara = $("#publicMsgTheme").val().trim();
+					var publicMsgContentPara = $("#publicMsgContent").val().trim();
+					if(publicMsgThemePara != "" && publicMsgContentPara != "") {
+						$.get('/secondaryMarket/PulibcMsg', {
+							status : 1,
+							publicMsgTheme : publicMsgThemePara,
+							publicMsgContent : publicMsgContentPara
+						}, function(data, textStatus) {
+							if(textStatus == "success") {
+								if(data.isSuccess == "true") {
+									alert("发送成功！");
+									$("#tbody").empty();//回复成功后，先进行清空，再重新拿出所有的东西
+									getMessageAll();
+								} else {
+									if(data.isRegister == "false") {
+										alert("请先进行登录！");
+										window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+									} else if(data.isAdmin == "false") {
+										window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+									} else {
+										alert("请刷新重试！");
+									}
+								}
+							} else {
+								alert("发送失败！请刷新重试！");
+							}
+						}, "json");
+					}
+				}
 				
-				function getThemes() {
-					$.get('/secondaryMarket/GetTheme',{
-						isOne : false,
-						pageNum : pageNumPage
+				/* {"isAdmin":"true","publicMsgs":null,"isSuccess":"true","isRegister":"true"} */
+				/* publicMsgId | publicMsgTheme | publicMsgContent | publicMsgTime */
+				function getMessageAll() {
+					$.get('/secondaryMarket/PulibcMsg',{
+						status : 3
 					},function(data, textStatus) {
 						if(textStatus == "success") {
-							
-							for(var i = 0; i < data.themes.length; i++) {
-								var tbody = $('<tr></tr>');
-								var td = $('<td></td>');
-								var a = $('<a></a>')
-								a.attr("href", "/secondaryMarket/pages/Theme_Pages/showThemeDetail.html?isOne=true&themeId="+data.themes[i].themeId);
-								a.text(data.themes[i].themeTitle);
-								a.appendTo(td);
-								td.appendTo(tbody);
+							if(data.isSuccess == "true") {
+								for(var i = 0; i < data.publicMsgs.length; i++) {
+									var tbody = $('<tr></tr>');
+									
+									var td = $('<td></td>');
+									td.text(data.publicMsgs[i].publicMsgTheme);
+									td.appendTo(tbody);
+									
+									var td1 = $('<td></td>');
+									td1.text(data.publicMsgs[i].publicMsgContent);
+									td1.appendTo(tbody);
+									
+									var td2 = $('<td></td>');
+									td2.text(data.publicMsgs[i].publicMsgTime);
+									td2.appendTo(tbody);
+									
+									var td3 = $('<td></td>');
+									var a = $('<a></a>');
+									a.attr("id", data.publicMsgs[i].publicMsgId);
+									a.text("删除");
+									var msgId = data.publicMsgs[i].publicMsgId;
+									a.click(function(e) {
+										e.preventDefault();//阻止事件冒泡
+										//alert(JSON.stringify(msgId));
+										$.get('/secondaryMarket/PulibcMsg', {
+											status : 2,
+											publicMsgId : JSON.stringify(msgId)
+										}, function(data, textStatus) {
+											//alert(data.isSuccess);
+											if(textStatus == "success") {
+												if(data.isSuccess == "true") {
+													alert("删除成功！");
+													$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
+													getMessageAll();
+												} else {
+													if(data.isRegister == "false") {
+														alert("请先登录！");
+														window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+													} else {
+														alert("请刷新重试！");
+													}
+												}
+											} else {
+												alert("您的网络可能存在问题，请刷新重试！");
+											}
+										}, "json");
+									});
+									
+									a.appendTo(td3);
+									td3.appendTo(tbody);
+									
+									tbody.appendTo($("#tbody"));
+								}
 								
-								var td1 = $('<td></td>');
-								td1.text(data.themes[i].themeContent);
-								td1.appendTo(tbody);
-								
-								var td2 = $('<td></td>');
-								td2.text(data.themes[i].themeTime);
-								td2.appendTo(tbody);
-								
-								
-								tbody.appendTo($("#tbody"));
+							} else {
+								if(data.isRegister == "false") {
+									alert("请先进行登录！");
+									window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+								} else if(data.isAdmin == "false") {
+									window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+								}
 							}
 						} else {
 							alert("请刷新重试！");
