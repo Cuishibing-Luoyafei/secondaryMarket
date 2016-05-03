@@ -1,6 +1,7 @@
 package com.secondaryMarket.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,8 @@ public class TopTheme extends HttpServlet{
 		Boolean isRegister = false;
 		Boolean isAdmin = false;
 		UserService us = ServiceFactory.createUserService();
+		ThemeService ts = ServiceFactory.createThemeService();
+		List<Theme> topThemes = null;
 		if(req.getSession().getAttribute("userName")==null){//没登陆
 			isSuccess = false;
 			isRegister = false;
@@ -43,17 +46,26 @@ public class TopTheme extends HttpServlet{
 				isAdmin = false;
 			}else{//是管理员
 				isAdmin = true;
-				ThemeService ts = ServiceFactory.createThemeService();
-				String flag = req.getParameter("flag");//flag为"true"置顶帖子,flag为"false"取消置顶
-				Integer themeId = Integer.valueOf(req.getParameter("themeId"));
-				Theme theme = new Theme();theme.setThemeId(themeId);
-				isSuccess = ts.isTop(theme, Boolean.valueOf(flag));
+				String status = req.getParameter("status");
+				switch(status){
+					case "1":{
+						String flag = req.getParameter("flag");//flag为"true"置顶帖子,flag为"false"取消置顶
+						Integer themeId = Integer.valueOf(req.getParameter("themeId"));
+						Theme theme = new Theme();theme.setThemeId(themeId);
+						isSuccess = ts.isTop(theme, Boolean.valueOf(flag));
+					}break;
+					case "2":{
+						isSuccess = true;
+						topThemes = ts.getTopThemes();
+					}break;
+				}
 			}
 		}
 		JSONObject result = new JSONObject();
 		result.accumulate("isSuccess", isSuccess.toString());
 		result.accumulate("isRegister", isRegister.toString());
 		result.accumulate("isAdmin", isAdmin.toString());
+		result.accumulate("topThemes", topThemes);
 		resp.getWriter().write(result.toString());
 	}
 	
