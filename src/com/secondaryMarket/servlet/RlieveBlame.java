@@ -55,6 +55,7 @@ public class RlieveBlame extends HttpServlet{
 						isSuccess = bs.relieveUser(userId);
 					}break;
 					case "2":{//查看所有被投诉用户
+						isSuccess = true;
 						blames = bs.getAllBlame();
 						users = new ArrayList<User>();
 						for(Blame b :blames){
