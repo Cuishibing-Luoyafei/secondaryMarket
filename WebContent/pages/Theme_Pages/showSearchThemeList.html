@@ -30,6 +30,7 @@
 				<tbody id="tbody">
 				</tbody>
 			</table>
+			<div id="searchRes" style="text-align:center;"></div>
 			<script>
 				var pageNumPage = 0;
 				$(document).ready(function() {
@@ -47,26 +48,52 @@
 						searchTextDecodeURI : searchTextDecodeURI
 					},function(data, textStatus) {
 						if(textStatus == "success") {
-							alert(data.isSuccess);
-							for(var i = 0; i < data.themes.length; i++) {
-								var tbody = $('<tr></tr>');
-								var td = $('<td></td>');
-								var a = $('<a></a>')
-								a.attr("href", "/secondaryMarket/pages/Theme_Pages/showThemeDetail.html?isOne=true&themeId="+data.themes[i].themeId);
-								a.text(data.themes[i].themeTitle);
-								a.appendTo(td);
-								td.appendTo(tbody);
+							//alert(data.isSuccess);
+							if(data.isSuccess == "false") {
+								//alert("搜索结果为空！");
+								var div = $('<div></div>');
+								div.attr("class", "col-sm-12 alert-danger alert-dismissible fade in");
+								div.attr("role", "alert");
 								
-								var td1 = $('<td></td>');
-								td1.text(data.themes[i].themeContent);
-								td1.appendTo(tbody);
-								
-								var td2 = $('<td></td>');
-								td2.text(data.themes[i].themeTime);
-								td2.appendTo(tbody);
-								
-								
-								tbody.appendTo($("#tbody"));
+								var h = $('<h3></h3>');
+								h.text("非常遗憾！！");
+								h.appendTo(div);
+								var p = $('<p></p>');
+								p.text("您搜索的结果为空！");
+								p.appendTo(div);
+								div.appendTo($("#searchRes"));
+								/* 
+									<div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4>Oh snap! You got an error!</h4>
+      <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+      <p>
+        <button class="btn btn-danger" type="button">Take this action</button>
+        <button class="btn btn-default" type="button">Or do this</button>
+      </p>
+    </div>
+								*/
+							} else {
+								for(var i = 0; i < data.themes.length; i++) {
+									var tbody = $('<tr></tr>');
+									var td = $('<td></td>');
+									var a = $('<a></a>')
+									a.attr("href", "/secondaryMarket/pages/Theme_Pages/showThemeDetail.html?isOne=true&themeId="+data.themes[i].themeId);
+									a.text(data.themes[i].themeTitle);
+									a.appendTo(td);
+									td.appendTo(tbody);
+									
+									var td1 = $('<td></td>');
+									td1.text(data.themes[i].themeContent);
+									td1.appendTo(tbody);
+									
+									var td2 = $('<td></td>');
+									td2.text(data.themes[i].themeTime);
+									td2.appendTo(tbody);
+									
+									
+									tbody.appendTo($("#tbody"));
+								}
 							}
 							
 						} else {
