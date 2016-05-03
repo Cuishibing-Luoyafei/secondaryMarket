@@ -36,6 +36,16 @@ public class BlameServiceImpl implements BlameService{
 		return bmd.isSb(user);
 	}
 
+	@Override
+	public boolean relieveUser(Integer userId) {
+		Blame b = bmd.getBlameInUserId(userId);
+		if(b!=null){
+			return bmd.deleteBlame(b);
+		}else{
+			return true;
+		}
+	}
+
 	
 	
 }
