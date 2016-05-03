@@ -53,10 +53,12 @@ public class GetTheme extends HttpServlet {
 				isRegister = true;
 				isSuccess = true;//应该要验证
 			}
+			List<Theme> topThemes = ts.getTopThemes();
 			List<Theme> themes = ts.getThemes(Integer.valueOf(pageNum), 8);
 			result.accumulate("isSuccess",isSuccess.toString());
 			result.accumulate("isRegister", isRegister.toString());
 			result.accumulate("themes", themes);
+			result.accumulate("topThemes", topThemes);
 			response.getWriter().write(result.toString());
 
 		}
