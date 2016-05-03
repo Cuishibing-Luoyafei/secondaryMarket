@@ -38,18 +38,18 @@ public class SearchTheme extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String searchTextDecodeURI = request.getParameter("searchTextDecodeURI");
 		String searchText = new String(searchTextDecodeURI.getBytes("ISO-8859-1"), "UTF-8");
-		boolean isSuccess = false;
+		Boolean isSuccess = false;
 		List<Theme> themes = ServiceFactory.createThemeService().getThemeInTitle(searchText);
 //System.out.println(searchText);
 		JSONObject result = new JSONObject();
 		if(themes != null) {
 			isSuccess = true;
-			result.accumulate("isSuccess", isSuccess);
+			result.accumulate("isSuccess", isSuccess.toString());
 			result.accumulate("themes", themes);
 			response.getWriter().write(result.toString());
 			return;
 		} else {
-			result.accumulate("isSuccess", isSuccess);
+			result.accumulate("isSuccess", isSuccess.toString());
 			response.getWriter().write(result.toString());
 			return;
 		}

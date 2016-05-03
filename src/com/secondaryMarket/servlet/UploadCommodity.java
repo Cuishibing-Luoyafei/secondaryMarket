@@ -39,6 +39,8 @@ public class UploadCommodity extends HttpServlet{
 		String userName = "";
 		if(req.getSession().getAttribute("userName")==null){
 			isRegister = false;
+			resp.sendRedirect("/secondaryMarket/pages/Public_Visit/login.html");
+			return;
 		}else{
 			isRegister = true;
 			userName = (String)req.getSession().getAttribute("userName");

@@ -30,14 +30,14 @@ public class UploadTheme extends  HttpServlet{
 		resp.setCharacterEncoding("UTF-8");
 		Boolean isSuccess = false;
 		Boolean isRegister = false;
-		String themeTitle = req.getParameter("themeTitle");
-		String themeContent = req.getParameter("themeContent");
-		Integer commodityId = Integer.parseInt(req.getParameter("themeCommodityId"));
 		Integer userId = -1;
 		ThemeService ts = ServiceFactory.createThemeService();
 		if(req.getSession().getAttribute("userName")==null){
 			isRegister = false;
 		}else{
+			String themeTitle = req.getParameter("themeTitle");
+			String themeContent = req.getParameter("themeContent");
+			Integer commodityId = Integer.parseInt(req.getParameter("themeCommodityId"));
 			isRegister = true;
 			userId = ServiceFactory.createUserService().getUserInName((String)(req.getSession().getAttribute("userName"))).getUserId();
 			Theme theme = new Theme();

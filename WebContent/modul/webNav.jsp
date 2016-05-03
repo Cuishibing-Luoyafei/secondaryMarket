@@ -21,7 +21,9 @@
 						</form>
 						<script>
 							function search() {
-								window.open("/secondaryMarket/pages/Theme_Pages/showSearchThemeList.html?searchText="+$("#inputSearch").val().trim());
+								if($("#inputSearch").val().trim() != "") {
+									window.open("/secondaryMarket/pages/Theme_Pages/showSearchThemeList.html?searchText="+$("#inputSearch").val().trim());
+								}
 								//window.open("www.baidu.com");
 							}
 						</script>

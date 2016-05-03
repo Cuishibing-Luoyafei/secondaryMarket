@@ -64,32 +64,37 @@
 					},function(data, textStatus) {
 						if(textStatus == "success") {
 							//alert(data.commodities.length);
-							for(var i = 0; i < data.commodities.length; i++) {
-								var tbody = $('<tr></tr>');
-								var td = $('<td></td>');
-								var a = $('<a></a>')
-								a.attr("href", "/secondaryMarket/pages/uploadCommodity/showCommodityDetail.html?isOne=true&CommodityId="+data.commodities[i].commodityId);
-								a.text(data.commodities[i].commodityName);
-								a.appendTo(td);
-								td.appendTo(tbody);
-								
-								var td1 = $('<td></td>');
-								td1.text(data.commodities[i].commodityCategary);
-								td1.appendTo(tbody);
-								
-								var td2 = $('<td></td>');
-								td2.text(data.commodities[i].commodityCount);
-								td2.appendTo(tbody);
-								
-								var td3 = $('<td></td>');
-								td3.text(data.commodities[i].commodityNewPrice);
-								td3.appendTo(tbody);
-								
-								var td4 = $('<td></td>');
-								td4.text(data.commodities[i].commodityDownDay);
-								td4.appendTo(tbody);
-								
-								tbody.appendTo($("#tbody"));
+							if(data.isSuccess == "true") {
+								for(var i = 0; i < data.commodities.length; i++) {
+									var tbody = $('<tr></tr>');
+									var td = $('<td></td>');
+									var a = $('<a></a>')
+									a.attr("href", "/secondaryMarket/pages/uploadCommodity/showCommodityDetail.html?isOne=true&CommodityId="+data.commodities[i].commodityId);
+									a.text(data.commodities[i].commodityName);
+									a.appendTo(td);
+									td.appendTo(tbody);
+									
+									var td1 = $('<td></td>');
+									td1.text(data.commodities[i].commodityCategary);
+									td1.appendTo(tbody);
+									
+									var td2 = $('<td></td>');
+									td2.text(data.commodities[i].commodityCount);
+									td2.appendTo(tbody);
+									
+									var td3 = $('<td></td>');
+									td3.text(data.commodities[i].commodityNewPrice);
+									td3.appendTo(tbody);
+									
+									var td4 = $('<td></td>');
+									td4.text(data.commodities[i].commodityDownDay);
+									td4.appendTo(tbody);
+									
+									tbody.appendTo($("#tbody"));
+								}
+							} else {
+								alert("请先登录");
+								window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
 							}
 						} else {
 							alert("请刷新重试！");

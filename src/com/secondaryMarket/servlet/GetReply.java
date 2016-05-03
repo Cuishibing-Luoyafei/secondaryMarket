@@ -33,7 +33,7 @@ public class GetReply extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		boolean isSuccess = false;
+		Boolean isSuccess = false;
 		String themeId = request.getParameter("themeId");
 //System.out.println(themeId);
 		JSONObject result = new JSONObject();
@@ -52,13 +52,13 @@ public class GetReply extends HttpServlet {
 			//result.accumulate("replys", replys);
 			result.accumulate("users", users);
 			result.put("replys", replys);
-			result.accumulate("isSuccess", isSuccess);
+			result.accumulate("isSuccess", isSuccess.toString());
 			response.getWriter().write(result.toString());
 //System.out.println(result.toString());
 			return;
 		} else {
 			isSuccess = false;
-			result.accumulate("isSuccess", isSuccess);
+			result.accumulate("isSuccess", isSuccess.toString());
 			response.getWriter().write(result.toString());
 			return;
 		}
