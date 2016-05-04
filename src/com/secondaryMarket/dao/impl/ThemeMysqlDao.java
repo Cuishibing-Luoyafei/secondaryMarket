@@ -249,6 +249,7 @@ public class ThemeMysqlDao implements ThemeDao{
 		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(sql);
+			ps.setInt(1, userId);
 			rs = ps.executeQuery();
 			rs.last();
 			if(rs.getRow()<1){
