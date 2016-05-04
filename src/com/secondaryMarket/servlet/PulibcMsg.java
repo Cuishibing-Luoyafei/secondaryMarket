@@ -37,6 +37,8 @@ public class PulibcMsg extends HttpServlet{
 		Boolean isAdmin = false;
 		UserService us = ServiceFactory.createUserService();
 		List<PublicMsg> publicMsgs = null;
+		PublicMsgService pms = ServiceFactory.createPublicMsgService();
+		publicMsgs = pms.getAllPublicMsg();
 		if(req.getSession().getAttribute("userName")==null){//没登陆
 			isSuccess = false;
 			isRegister = false;
@@ -48,7 +50,6 @@ public class PulibcMsg extends HttpServlet{
 				isSuccess = false;
 				isAdmin = false;
 			}else{//是管理员
-				PublicMsgService pms = ServiceFactory.createPublicMsgService();
 				String status = req.getParameter("status");
 				isAdmin = true;
 				switch(status){
