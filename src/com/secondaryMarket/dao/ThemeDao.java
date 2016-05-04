@@ -13,4 +13,5 @@ public interface ThemeDao {
 	public boolean deleteTheme(Theme theme);
 	public boolean updateTheme(Theme theme);
 	public boolean isTop(Theme theme,boolean flag);
+	public List<Theme> getThemesInUser(Integer userId);
 }

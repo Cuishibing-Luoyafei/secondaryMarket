@@ -240,5 +240,33 @@ public class ThemeMysqlDao implements ThemeDao{
 			ConnectionFactory.closed(connection, ps, rs);
 		}
 	}
+
+	@Override
+	public List<Theme> getThemesInUser(Integer userId) {
+		String sql = "select themeId from theme where themeUserId=?";
+		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.last();
+			if(rs.getRow()<1){
+				return null;
+			}else{
+				rs.beforeFirst();
+				List<Theme> themes = new ArrayList<Theme>();
+				while(rs.next()){
+					themes.add(getThemeInId(rs.getInt("themeId")));
+				}
+				return themes;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			ConnectionFactory.closed(connection, ps, rs);
+		}
+	}
 	
 }

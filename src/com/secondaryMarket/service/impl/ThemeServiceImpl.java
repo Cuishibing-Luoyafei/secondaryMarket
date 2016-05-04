@@ -59,5 +59,10 @@ public class ThemeServiceImpl implements ThemeService{
 		// TODO Auto-generated method stub
 		return td.isTop(theme, flag);
 	}
+	@Override
+	public List<Theme> getThemesInUser(Integer userId) {
+		// TODO Auto-generated method stub
+		return td.getThemesInUser(userId);
+	}
 	
 }
