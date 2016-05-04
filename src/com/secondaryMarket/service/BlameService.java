@@ -10,4 +10,5 @@ public interface BlameService {
 	public List<Blame> getAllBlame();
 	public boolean isSb(User user);
 	public boolean relieveUser(Integer userId);
+	public Blame getBlameInUser(Integer userId);
 }

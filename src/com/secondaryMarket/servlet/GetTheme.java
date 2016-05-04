@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.secondaryMarket.bean.Theme;
 import com.secondaryMarket.factory.ServiceFactory;
+import com.secondaryMarket.service.BlameService;
 import com.secondaryMarket.service.CommodityService;
 import com.secondaryMarket.service.ThemeService;
 import com.secondaryMarket.service.UserService;
@@ -32,11 +33,14 @@ public class GetTheme extends HttpServlet {
 			String themeIdStr = request.getParameter("themeId");
 			Integer themeId = Integer.valueOf(themeIdStr);
 			JSONObject result = new JSONObject();
-			result.accumulate("theme", ts.getThemeInId(themeId));
+			Theme theme = ts.getThemeInId(themeId);
+			result.accumulate("theme", theme);
 			CommodityService cs = ServiceFactory.createCommodityService();
 			result.accumulate("commodity", cs.getCommodityInId(ts.getThemeInId(themeId).getThemeCommodityId()));
 			UserService us = ServiceFactory.createUserService();
 			result.accumulate("user", us.getUserInId(ts.getThemeInId(themeId).getThemeUserId()));
+			BlameService bs = ServiceFactory.createBlameService();
+			result.accumulate("blame",bs.getBlameInUser(theme.getThemeUserId()));
 			response.getWriter().write(result.toString());
 			
 //System.out.println(result.toString());

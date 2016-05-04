@@ -46,6 +46,12 @@ public class BlameServiceImpl implements BlameService{
 		}
 	}
 
+	@Override
+	public Blame getBlameInUser(Integer userId) {
+		// TODO Auto-generated method stub
+		return bmd.getBlameInUserId(userId);
+	}
+
 	
 	
 }
