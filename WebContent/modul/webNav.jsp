@@ -40,10 +40,29 @@
 						<%
 							} else {
 						%>
-							<a class="btn btn-primary" href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">上传商品</a>
-							<a class="btn btn-primary"  href="/secondaryMarket/pages/Theme_Pages/publicTheme.html">发布主题</a>
-							<a class="btn btn-primary" href="/secondaryMarket/pages/uploadCommodity/showCommodityList.html">查看自己的物品</a>
-							<a class="btn btn-default" href="/secondaryMarket/LoginOut">注销</a>
+							<a class="btn btn-sm btn-primary" href="/secondaryMarket/pages/modifyInfo/modifySelfInfo.html">修改个人信息</a>
+							<a class="btn btn-sm btn-primary" href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">上传商品</a>
+							<a class="btn btn-sm btn-primary"  href="/secondaryMarket/pages/Theme_Pages/publicTheme.html">发布主题</a>
+							<a class="btn btn-sm btn-primary" href="/secondaryMarket/pages/uploadCommodity/showCommodityList.html">查看自己的物品</a>
+							<a class="btn btn-sm btn-default" href="/secondaryMarket/LoginOut" style="float:right;">注销</a>
+							<script>
+								$(document).ready(function() {
+									$.get('/secondaryMarket/TopTheme',{
+										status : 2
+									},function(data, textStatus) {
+										if(textStatus == "success") {
+											if(data.isAdmin == "true") {
+												var a = $('<a></a>');
+												a.attr("class", "btn btn-sm btn-primary");
+												a.attr("href", "/secondaryMarket/pages/admin_operate/adminOperateList.html");
+												a.text("管理员操作");
+												
+												a.appendTo($("#login-register-bar"));
+											}
+										}
+									},"json");
+								});
+							</script>
 						<%
 							}
 						%>

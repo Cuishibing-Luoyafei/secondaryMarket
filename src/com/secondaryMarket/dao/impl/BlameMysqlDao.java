@@ -57,6 +57,7 @@ System.out.println("插入封禁表出错！");
 				blame.setBlameCount(rs.getInt("blameCount"));
 				blame.setBlameReason(rs.getString("blameReason"));
 				blame.setHonorRank(rs.getInt("honorRank"));
+				blame.setUserId(rs.getInt("userId"));
 				return blame;
 			}
 		} catch (SQLException e) {

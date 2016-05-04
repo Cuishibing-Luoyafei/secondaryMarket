@@ -34,7 +34,7 @@ public class BlameUser extends HttpServlet{
 		}else{
 			isRegister = true;
 
-			Integer blameUserId = ServiceFactory.createUserService().getUserInName(req.getParameter("userName")).getUserId();
+			Integer blameUserId = ServiceFactory.createUserService().getUserInName(new String(req.getParameter("userName").getBytes("ISO-8859-1"), "UTF-8")).getUserId();
 
 			String blameReasonLuan = req.getParameter("blameReason");
 			String blameReason = new String(blameReasonLuan.getBytes("ISO-8859-1"), "UTF-8");

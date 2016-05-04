@@ -32,30 +32,12 @@
 				<tbody id="tbody">
 				</tbody>
 			</table>
-			<div align="center">
-				<nav>
-				  <ul class="pagination">
-				    <!-- <li class="disabled"><a href="#">&laquo;</a></li> -->
-				    <li><a class="pageNum">1</a></li>
-				    <li><a class="pageNum">2</a></li>
-				    <li><a class="pageNum">3</a></li>
-				    <li><a class="pageNum">4</a></li>
-				    <li><a class="pageNum">5</a></li>
-				    <!-- <li><a class="pageNum" name="pageNum">&raquo;</a></li> -->
-				  </ul>
-				</nav>
+			<div>
+				<a class=" btn btn-info col-sm-12 control-label" onclick="history.go(-1)" style="text-align: center;">返回首页</a>
 			</div>
 			<script>
-				var pageNumPage = 0;
 				$(document).ready(function() {
 					getThemes();
-					$("ul .pageNum").click(function(e) {
-						 e.preventDefault();
-						 pageNumPage = ($(this).text()-1) * 8;
-						// alert(pageNumPage);
-						 $("#tbody").empty();
-						 getThemes();
-					});
 				});
 				
 				function getThemes() {

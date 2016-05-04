@@ -47,7 +47,8 @@ public class TopTheme extends HttpServlet{
 			}else{//是管理员
 				isAdmin = true;
 				String status = req.getParameter("status");
-				switch(status){
+				if(status != null) {
+					switch(status){
 					case "1":{
 						String flag = req.getParameter("flag");//flag为"true"置顶帖子,flag为"false"取消置顶
 						Integer themeId = Integer.valueOf(req.getParameter("themeId"));
@@ -59,13 +60,14 @@ public class TopTheme extends HttpServlet{
 						topThemes = ts.getTopThemes();
 					}break;
 				}
+				}
 			}
 		}
 		JSONObject result = new JSONObject();
 		result.accumulate("isSuccess", isSuccess.toString());
 		result.accumulate("isRegister", isRegister.toString());
 		result.accumulate("isAdmin", isAdmin.toString());
-		result.accumulate("topThemes", topThemes);
+		result.accumulate("themes", topThemes);
 		resp.getWriter().write(result.toString());
 	}
 	

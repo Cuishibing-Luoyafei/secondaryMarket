@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>商品上传</title>
+
+		<link href="../../assets/bootstrap-3.3.5/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+		<link href="../../assets/bootstrap-3.3.5/docs/examples/signin/signin.css" rel="stylesheet">
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie-emulation-modes-warning.js"></script>
+		<script src="../../assets/jQuery/2.x/jquery-2.1.4.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/dist/js/bootstrap.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/vendor/holder.min.js"></script>
+		<script src="../../assets/bootstrap-3.3.5/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+		
+			<div id="userForm" class="form-horizontal" role="form">
+				
+				<div class="panel panel-default">
+				  <div class="panel-body" style="text-align: center;">
+				    <label id="userNackName"></label>&nbsp;&nbsp;&nbsp;&nbsp;您好！
+				  </div>
+				</div>
+			  
+			  <div class="form-group">
+			    <label for="userRealName" class="col-sm-2 control-label">真实姓名</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="userRealName" id="userRealName" placeholder="真实姓名">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="userTel" class="col-sm-2 control-label">电话号码</label>
+			    <div class="col-sm-10">
+			      <input type="tel" class="form-control" name="userTel" id="userTel" placeholder="电话号码">
+			    </div>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="userQQ" class="col-sm-2 control-label">QQ</label>
+			    <div class="col-sm-10">
+			      <input type="number" class="form-control" name="userQQ" id="userQQ" placeholder="QQ">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="userEmail" class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-10">
+			      <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="email">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="userSchool" class="col-sm-2 control-label">所在学校</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" name="userSchool" id="userSchool" placeholder="所在学校">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="userPassword" class="col-sm-2 control-label">密码</label>
+			    <div class="col-sm-10">
+			      <input type="password" class="form-control" name="userPassword" id="userPassword">
+			    </div>
+			  </div>
+			  
+			  
+			  <div class="form-group">
+			  	<a for="submitModify" class=" btn btn-info col-sm-2 control-label" onclick="history.go(-1)" style="text-align: center;">返回首页</a>
+			    <div class="col-sm-10">
+			      <button id="submitModify" class="btn btn-block btn-success">确认修改</button>
+			    </div>
+			  </div>
+			</div>
+			<script>
+			
+			$(document).ready(function() {
+				
+				getUserInfo();
+				
+				$("#submitModify").bind("click", function() {
+					
+					var userPassword = $("#userPassword").val().trim();
+					var userRealName = $("#userRealName").val().trim();
+					var userTel = $("#userTel").val().trim();
+					var userQQ = $("#userQQ").val().trim();
+					var userEmail = $("#userEmail").val().trim();
+					var userSchool = $("#userSchool").val().trim();
+					
+					if(userPassword!="" && userRealName!="" && userTel!="" && userQQ!="" && 
+							userEmail!="" && userSchool!="") {
+						$.get("/secondaryMarket/UpdateUser", {
+							userPassword : userPassword,
+							userRealName : userRealName,
+							userTel : userTel,
+							userQQ : userQQ,
+							userEmail : userEmail,
+							userSchool : userSchool
+						}, function(data, textStatus){
+							if(textStatus == "success") {
+								if(data.isSuccess == "true") {
+									alert("密码修改成功！");
+									getUserInfo();
+								} else {
+									if(data.isRegister == "false") {
+										window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+									}
+								}
+							} else {
+								alert("请刷新重试！");
+							}
+						}, "json");
+					} else {
+						alert("请填写完整");
+					}
+					
+					
+				});
+			});
+			function getUserInfo() {
+				$.get("/secondaryMarket/GetUserInfo", {}, function(data, textStatus){
+					if(textStatus == "success") {
+						if(data.isSuccess == "true") {
+							$("#userNackName").text(data.user.userNackName);
+							$("#userPassword").val(data.user.userPassword);
+							$("#userRealName").val(data.user.userRealName);
+							$("#userTel").val(data.user.userTel);
+							$("#userQQ").val(data.user.userQQ);
+							$("#userEmail").val(data.user.userEmail);
+							$("#userSchool").val(data.user.userSchool);
+						} else {
+							if(data.isRegister == "false") {
+								window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+							}
+						}
+					}
+					
+				}, "json");
+			}
+			</script>
+		</div>
+	</body>
+</html>
