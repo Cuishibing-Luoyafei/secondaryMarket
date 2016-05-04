@@ -1,6 +1,7 @@
 package com.secondaryMarket.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.secondaryMarket.bean.Commodity;
 import com.secondaryMarket.bean.Theme;
 import com.secondaryMarket.factory.ServiceFactory;
 import com.secondaryMarket.service.BlameService;
@@ -59,6 +61,12 @@ public class GetTheme extends HttpServlet {
 			}
 			List<Theme> topThemes = ts.getTopThemes();
 			List<Theme> themes = ts.getThemes(Integer.valueOf(pageNum), 8);
+			List<Commodity> commodities = new ArrayList<Commodity>();
+			CommodityService tms = ServiceFactory.createCommodityService();
+			for(Theme t:themes){
+				commodities.add(tms.getCommodityInId(t.getThemeCommodityId()));
+			}
+			result.accumulate("commodities", commodities);
 			result.accumulate("isSuccess",isSuccess.toString());
 			result.accumulate("isRegister", isRegister.toString());
 			result.accumulate("themes", themes);
