@@ -77,16 +77,16 @@
 					*/
 					if(textStatus == "success") {
 						//alert(data.publicMsgs[0].publicMsgContent);
-						if(data.publicMsgs != null) {
-							//alert(data.publicMsgs.length);
+						if(data.publicMsgs != "") {
 							for(var i = 0; i < data.publicMsgs.length; i++) {
 								var div = $('<div></div>');
 								var label = $('<label></label>');
 								label.text("特大好消息"+ (i+1) + ": " +data.publicMsgs[i].publicMsgContent);
 								label.appendTo(div);
 								div.appendTo($("#messageInfo"));
-								
 							}
+						} else {
+							toHide();
 						}
 					}
 					//alert(JSON.stringify(data.publicMsgs));
