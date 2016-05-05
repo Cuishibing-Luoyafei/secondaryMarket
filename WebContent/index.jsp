@@ -13,7 +13,7 @@
 					<div class="container">
 						<div class="carousel-caption">
 							<h1 style="color: black;">二手交易市场</h1>
-							<div class="panel panel-default" onclick="toHide()" id="messagePanel" style="height: ;position: fixed;z-index: 1000;background-color: red;font-size: 20px;">
+							<div class="panel panel-default" onclick="toHide()" id="messagePanel" style="height: ;position: fixed;z-index: 99999;background-color: red;font-size: 20px;">
 							  <div class="panel-body" id="messageInfo" style="text-align: left;">
 							   		
 							  </div>
