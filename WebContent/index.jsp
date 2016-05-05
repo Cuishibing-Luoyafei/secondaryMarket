@@ -13,7 +13,7 @@
 					<div class="container">
 						<div class="carousel-caption">
 							<h1 style="color: black;">二手交易市场</h1>
-							<div class="panel panel-default" onclick="toHide()" id="messagePanel" style="height: ;position: fixed;z-index: 1000;background-color: red;font-size: 20px;">
+							<div class="panel panel-default" onclick="toHide()" id="messagePanel" style="height: ;position: fixed;z-index: 99999;background-color: red;font-size: 20px;">
 							  <div class="panel-body" id="messageInfo" style="text-align: left;">
 							   		
 							  </div>
@@ -77,16 +77,16 @@
 					*/
 					if(textStatus == "success") {
 						//alert(data.publicMsgs[0].publicMsgContent);
-						if(data.publicMsgs != null) {
-							//alert(data.publicMsgs.length);
+						if(data.publicMsgs != "") {
 							for(var i = 0; i < data.publicMsgs.length; i++) {
 								var div = $('<div></div>');
 								var label = $('<label></label>');
 								label.text("特大好消息"+ (i+1) + ": " +data.publicMsgs[i].publicMsgContent);
 								label.appendTo(div);
 								div.appendTo($("#messageInfo"));
-								
 							}
+						} else {
+							toHide();
 						}
 					}
 					//alert(JSON.stringify(data.publicMsgs));
