@@ -272,7 +272,7 @@ public class ThemeMysqlDao implements ThemeDao{
 
 	@Override
 	public Integer getTopThemeInId(Integer themeId) {
-		String sql = "select themeId from topTheme where themeUserId=?";
+		String sql = "select themeId from topTheme where themeId=?";
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;

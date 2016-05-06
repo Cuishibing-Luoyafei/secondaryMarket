@@ -130,7 +130,7 @@
 												if(data.isSuccess == "true") {
 													alert("解除成功！");
 													$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
-													getThemes();
+													getThemesInAdmin();
 												} else {
 													if(data.isRegister == "false") {
 														alert("请先登录！");
@@ -157,7 +157,7 @@
 												if(data.isSuccess == "true") {
 													alert("删除成功！");
 													$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
-													getThemes();
+													getThemesInAdmin();
 												} else {
 													if(data.isRegister == "false") {
 														alert("请先登录！");
@@ -233,12 +233,12 @@
 									$.get('/secondaryMarket/DeleteTheme', {
 										themeId : event.data.index
 									}, function(data, textStatus) {
-										alert(data.isSuccess);
+										//alert(data.isSuccess);
 										if(textStatus == "success") {
 											if(data.isSuccess == "true") {
 												alert("删除成功！");
 												$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
-												getThemes();
+												getThemesInAdmin();
 											} else {
 												if(data.isRegister == "false") {
 													alert("请先登录！");
