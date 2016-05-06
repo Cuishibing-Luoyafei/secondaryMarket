@@ -317,54 +317,59 @@
 						if(textStatus == "success") {
 							if(data.isSuccess == "true") {
 								for(var i = 0; i < data.blames.length; i++) {
-									var tbody = $('<tr></tr>');
 									
-									var td = $('<td></td>');
-									td.text(data.users[i].userNackName);
-									td.appendTo(tbody);
-									
-									var td1 = $('<td></td>');
-									td1.text(data.users[i].userRealName);
-									td1.appendTo(tbody);
-									
-									var td2 = $('<td></td>');
-									td2.text(data.blames[i].blameReason);
-									td2.appendTo(tbody);
-									
-									var td3 = $('<td></td>');
-									td3.text(data.blames[i].blameCount);
-									td3.appendTo(tbody);
-									
-									var td4 = $('<td></td>');
-									var a = $('<a></a>');
-									a.attr("id", data.blames[i].blameId);
-									a.text("解封");
-									a.bind("click", {index: data.users[i].userId}, function(event) {
-										$.get('/secondaryMarket/RlieveBlame', {
-											status : 1,
-											userId : event.data.index
-										}, function(data, textStatus) {
-											//alert(data.isSuccess);
-											if(textStatus == "success") {
-												if(data.isSuccess == "true") {
-													alert("解封成功！");
-													$("#tbodyBlame").empty();//删除成功后，先进行清空，再重新拿出所有的东西
-													getBlameUserAll();
-												} else {
-													if(data.isRegister == "false") {
-														alert("请先登录！");
-														window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+									if(data.blames[i].blameCount >= 10) {
+										
+										var tbody = $('<tr></tr>');
+										
+										var td = $('<td></td>');
+										td.text(data.users[i].userNackName);
+										td.appendTo(tbody);
+										
+										var td1 = $('<td></td>');
+										td1.text(data.users[i].userRealName);
+										td1.appendTo(tbody);
+										
+										var td2 = $('<td></td>');
+										td2.text(data.blames[i].blameReason);
+										td2.appendTo(tbody);
+										
+										var td3 = $('<td></td>');
+										td3.text(data.blames[i].blameCount);
+										td3.appendTo(tbody);
+										
+										var td4 = $('<td></td>');
+										var a = $('<a></a>');
+										a.attr("id", data.blames[i].blameId);
+										a.text("解封");
+										a.bind("click", {index: data.users[i].userId}, function(event) {
+											$.get('/secondaryMarket/RlieveBlame', {
+												status : 1,
+												userId : event.data.index
+											}, function(data, textStatus) {
+												//alert(data.isSuccess);
+												if(textStatus == "success") {
+													if(data.isSuccess == "true") {
+														alert("解封成功！");
+														$("#tbodyBlame").empty();//删除成功后，先进行清空，再重新拿出所有的东西
+														getBlameUserAll();
+													} else {
+														if(data.isRegister == "false") {
+															alert("请先登录！");
+															window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+														}
 													}
+												} else {
+													alert("您的网络可能存在问题，请刷新重试！");
 												}
-											} else {
-												alert("您的网络可能存在问题，请刷新重试！");
-											}
-										}, "json");
-									});
-									a.appendTo(td4);
-									td4.appendTo(tbody);
-									
-									tbody.appendTo($("#tbodyBlame"));
+											}, "json");
+										});
+										a.appendTo(td4);
+										td4.appendTo(tbody);
+										
+										tbody.appendTo($("#tbodyBlame"));
+										
+									}
 								}
 								
 							} else {
