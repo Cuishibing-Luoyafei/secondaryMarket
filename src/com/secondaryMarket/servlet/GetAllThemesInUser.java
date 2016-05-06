@@ -36,7 +36,7 @@ public class GetAllThemesInUser extends HttpServlet{
 			isRegister = true;
 			isSuccess = true;
 			Integer userId = ServiceFactory.createUserService().getUserInName((String)(req.getSession().getAttribute("userName"))).getUserId();
-System.out.println(userId);
+//System.out.println(userId);
 			themes = ServiceFactory.createThemeService().getThemesInUser(userId);
 		}
 		JSONObject result = new JSONObject();

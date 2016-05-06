@@ -48,6 +48,7 @@ public class CommodityMysqlDao implements CommodityDao {
 			pstmt.setInt(1, commodityId);
 			rs = pstmt.executeQuery();
 			rs.next();
+System.out.println(commodityId + ":rs:" + rs.getInt(1));
 			commodity.setCommodityId(rs.getInt(1));
 			commodity.setCommodityName(rs.getString(2));
 			commodity.setCommodityCategary(rs.getString(3));
@@ -182,13 +183,16 @@ System.out.println("数据库删除货物时出错！");
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, user.getUserId());
+System.out.println("userId:" + user.getUserId());
 			rs = ps.executeQuery();
 			rs.last();
-			if(rs.getRow()>1){
+System.out.println("getRow:" + rs.getRow());
+			if(rs.getRow()>=1){
 				List<Commodity> commodities = new ArrayList<Commodity>();
 				rs.beforeFirst();
 				while(rs.next()){
 					Integer commodityId = rs.getInt("commodityId");
+System.out.println(commodityId);
 					commodities.add(getCommodityInId(commodityId));
 				}
 				return commodities;

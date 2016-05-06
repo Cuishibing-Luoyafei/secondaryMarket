@@ -27,6 +27,7 @@
 						<th>商品数量</th>
 						<th>商品现价</th>
 						<th>下架天数</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody id="tbody">
@@ -71,6 +72,35 @@
 									var td4 = $('<td></td>');
 									td4.text(data.commodities[i].commodityDownDay);
 									td4.appendTo(tbody);
+									
+									var td5 = $('<td></td>');
+									var a1 = $('<a></a>');
+									a1.attr("class", "btn btn-sm btn-danger");
+									a1.text("删除");
+									a1.bind("click", {index:data.commodities[i].commodityId}, function(event) {
+										
+										$.get('/secondaryMarket/DeleteCommodity', {
+											commodityId : event.data.index
+										}, function(data, textStatus) {
+											//alert(data.isSuccess);
+											if(textStatus == "success") {
+												if(data.isSuccess == "true") {
+													alert("删除成功！");
+													$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
+													getThemes();
+												} else {
+													if(data.isRegister == "false") {
+														alert("请先登录！");
+														window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+													}
+												}
+											} else {
+												alert("您的网络可能存在问题，请刷新重试！");
+											}
+										}, "json");
+									});
+									a1.appendTo(td5);
+									td5.appendTo(tbody);
 									
 									tbody.appendTo($("#tbody"));
 								}

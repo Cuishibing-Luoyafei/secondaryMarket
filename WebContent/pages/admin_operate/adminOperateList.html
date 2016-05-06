@@ -318,7 +318,7 @@
 							if(data.isSuccess == "true") {
 								for(var i = 0; i < data.blames.length; i++) {
 									
-									if(data.blames[i].blameCount >= 10) {
+									if(data.blames[i].blameCount >= 9) {
 										
 										var tbody = $('<tr></tr>');
 										
@@ -335,7 +335,7 @@
 										td2.appendTo(tbody);
 										
 										var td3 = $('<td></td>');
-										td3.text(data.blames[i].blameCount);
+										td3.text(data.blames[i].blameCount*1+1);
 										td3.appendTo(tbody);
 										
 										var td4 = $('<td></td>');

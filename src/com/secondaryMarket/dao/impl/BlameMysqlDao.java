@@ -173,7 +173,7 @@ System.out.println("更新封禁表出现异常！");
 		if(blame==null){
 			return false;
 		}else{
-			if(blame.getBlameCount()>10)
+			if(blame.getBlameCount()>8)
 				return true;
 			else
 				return false;

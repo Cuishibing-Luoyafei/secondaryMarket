@@ -30,7 +30,7 @@
 
 					</ul>
 					<div class="navbar-form pull-right">
-
+      
 						<div id="login-register-bar">
 						<%
 							if(session.getAttribute("userName") == null) {
@@ -39,12 +39,33 @@
 							<a class="btn btn-default" href="/secondaryMarket/pages/Public_Visit/register.html">注册</a>
 						<%
 							} else {
+								
 						%>
-							<a class="btn btn-sm btn-primary" href="/secondaryMarket/pages/modifyInfo/modifySelfInfo.html">修改个人信息</a>
-							<a class="btn btn-sm btn-primary" href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">上传商品</a>
-							<a class="btn btn-sm btn-primary"  href="/secondaryMarket/pages/Theme_Pages/publicTheme.html">发布主题</a>
-							<a class="btn btn-sm btn-primary" href="/secondaryMarket/pages/uploadCommodity/showCommodityList.html">查看自己的物品</a>
-							<a class="btn btn-sm btn-default" href="/secondaryMarket/LoginOut" style="float:right;">注销</a>
+						<div class="btn-group">
+    							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;操作管理
+    							<span class="caret"></span>
+    							</button>
+    							 <ul class="dropdown-menu" role="menu">
+							<li><a href="/secondaryMarket/pages/modifyInfo/modifySelfInfo.html">
+								<span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;个人信息
+							</a></li>
+							<li><a href="/secondaryMarket/pages/uploadCommodity/uploadCommodity.html">
+								<span class="glyphicon glyphicon-upload"></span>&nbsp;&nbsp;上传商品
+							</a></li>
+							<li><a href="/secondaryMarket/pages/Theme_Pages/publicTheme.html">
+								<span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;发布主题</a>
+							</li>
+							<li><a href="/secondaryMarket/pages/uploadCommodity/showCommodityList.html">
+								<span class="glyphicon glyphicon-folder-close"></span>&nbsp;&nbsp;已传物品
+							</a></li>
+							<li><a href="/secondaryMarket/pages/Theme_Pages/showThemeListByUser.html">
+								<span class="glyphicon glyphicon-folder-close"></span>&nbsp;&nbsp;已发主题
+							</a></li>
+							
+							<li><a href="/secondaryMarket/LoginOut">
+								<span class="glyphicon glyphicon-remove-sign"></span>&nbsp;&nbsp;注销
+							</a></li>
 							<script>
 								$(document).ready(function() {
 									$.get('/secondaryMarket/TopTheme',{
@@ -52,12 +73,13 @@
 									},function(data, textStatus) {
 										if(textStatus == "success") {
 											if(data.isAdmin == "true") {
+												var li = $('<li></li>');
 												var a = $('<a></a>');
-												a.attr("class", "btn btn-sm btn-primary");
+												a.attr("class", "btn-danger");
 												a.attr("href", "/secondaryMarket/pages/admin_operate/adminOperateList.html");
-												a.text("管理员操作");
-												
-												a.appendTo($("#login-register-bar"));
+												a.text("特权操作");
+												a.appendTo(li);
+												li.appendTo($(".dropdown-menu"));
 											}
 										}
 									},"json");
@@ -66,6 +88,7 @@
 						<%
 							}
 						%>
+						</ul>
 						</div>
 					</div>
 				</div>
