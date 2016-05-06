@@ -64,5 +64,15 @@ public class ThemeServiceImpl implements ThemeService{
 		// TODO Auto-generated method stub
 		return td.getThemesInUser(userId);
 	}
+	@Override
+	public Integer getTopThemeInId(Integer themeId) {
+		// TODO Auto-generated method stub
+		return td.getTopThemeInId(themeId);
+	}
+	@Override
+	public boolean deleteTopTheme(Integer themeId) {
+		// TODO Auto-generated method stub
+		return td.deleteTopTheme(themeId);
+	}
 	
 }

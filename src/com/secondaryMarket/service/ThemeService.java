@@ -13,5 +13,7 @@ public interface ThemeService {
 	public boolean deleteTheme(Theme theme);
 	public boolean updateTheme(Theme theme);
 	public boolean isTop(Theme theme,boolean flag);
+	public Integer getTopThemeInId(Integer themeId);//返回的时置顶帖的Id
 	public List<Theme> getThemesInUser(Integer userId);
+	public boolean deleteTopTheme(Integer themeId);
 }

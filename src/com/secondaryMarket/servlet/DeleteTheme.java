@@ -62,11 +62,17 @@ public class DeleteTheme extends HttpServlet {
 			if(user.getUserRole()==1){
 				isAdmin = true;
 				Theme theme = new Theme();theme.setThemeId(themeId);
+				if(ts.getTopThemeInId(themeId)!=null){
+					ts.deleteTopTheme(themeId);
+				}
 				isSuccess = ts.deleteTheme(theme);
 			}else{
 				isAdmin = false;
 				Theme theme = ts.getThemeInId(themeId);
 				if(theme.getThemeUserId()==user.getUserId()){//是自己的帖子
+					if(ts.getTopThemeInId(themeId)!=null){
+						ts.deleteTopTheme(themeId);
+					}
 					isSuccess = ts.deleteTheme(theme);
 				}else{
 					isSuccess = false;
