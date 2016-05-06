@@ -110,7 +110,8 @@
 									
 									var td3 = $('<td></td>');
 									var a1 = $('<a></a>');
-									a1.text("解除置顶");
+									a1.attr("class", "btn btn-sm btn-default");
+									a1.text("移除");
 									a1.bind("click", {index:data.topThemes[i].themeId}, function(event) {
 										
 										$.get('/secondaryMarket/TopTheme', {
@@ -136,8 +137,34 @@
 										}, "json");
 										
 									});
-									
 									a1.appendTo(td3);
+									var a2 = $('<a></a>');
+									a2.text("删除");
+									a2.attr("class", "btn btn-sm btn-danger");
+									a2.bind("click", {index:data.topThemes[i].themeId}, function(event) {
+										
+										$.get('/secondaryMarket/DeleteTheme', {
+											themeId : event.data.index
+										}, function(data, textStatus) {
+											alert(data.isSuccess);
+											if(textStatus == "success") {
+												if(data.isSuccess == "true") {
+													alert("删除成功！");
+													$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
+													getThemes();
+												} else {
+													if(data.isRegister == "false") {
+														alert("请先登录！");
+														window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+													}
+												}
+											} else {
+												alert("您的网络可能存在问题，请刷新重试！");
+											}
+										}, "json");
+										
+									});
+									a2.appendTo(td3);
 									td3.appendTo(tbody);
 									
 									tbody.appendTo($("#tbody"));
@@ -164,6 +191,7 @@
 								var td3 = $('<td></td>');
 								var a1 = $('<a></a>');
 								a1.text("置顶");
+								a1.attr("class", "btn btn-sm btn-default");
 								a1.bind("click", {index:data.themes[i].themeId}, function(event) {
 									
 									$.get('/secondaryMarket/TopTheme', {
@@ -190,6 +218,35 @@
 									
 								});
 								a1.appendTo(td3);
+								
+								var a2 = $('<a></a>');
+								a2.attr("class", "btn btn-sm btn-danger");
+								a2.text("删除");
+								a2.bind("click", {index:data.themes[i].themeId}, function(event) {
+									
+									$.get('/secondaryMarket/DeleteTheme', {
+										themeId : event.data.index
+									}, function(data, textStatus) {
+										alert(data.isSuccess);
+										if(textStatus == "success") {
+											if(data.isSuccess == "true") {
+												alert("删除成功！");
+												$("#tbody").empty();//删除成功后，先进行清空，再重新拿出所有的东西
+												getThemes();
+											} else {
+												if(data.isRegister == "false") {
+													alert("请先登录！");
+													window.location.href = "/secondaryMarket/pages/Public_Visit/login.html";
+												}
+											}
+										} else {
+											alert("您的网络可能存在问题，请刷新重试！");
+										}
+									}, "json");
+									
+								});
+								a2.appendTo(td3);
+								
 								td3.appendTo(tbody);
 								tbody.appendTo($("#tbody"));
 							}

@@ -81,7 +81,7 @@ public class ThemeMysqlDao implements ThemeDao{
 	@Override
 	public List<Theme> getThemes(Integer start, Integer size) {
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
-		String sql = "select themeId from theme where themeId limit ?,?";
+		String sql = "select themeId from theme order by themeId desc limit ?,?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
@@ -215,7 +215,7 @@ public class ThemeMysqlDao implements ThemeDao{
 
 	@Override
 	public List<Theme> getTopThemes() {
-		String sql = "select themeId from topTheme"; 
+		String sql = "select themeId from topTheme order by topThemeId desc"; 
 		Connection connection = ConnectionFactory.createMySqlConnectionBuilder().getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
