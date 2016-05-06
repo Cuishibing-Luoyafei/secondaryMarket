@@ -55,14 +55,6 @@
 				var pageNumPage = 0;
 				$(document).ready(function() {
 					displayOperate();
-					$("ul .pageNum").click(function(e) {
-						 e.preventDefault();
-						 pageNumPage = ($(this).text()-1) * 8;
-						// alert(pageNumPage);
-						 $("#tbody").empty();
-						 getThemes();
-					});
-					
 				});
 				
 				function displayOperate() {
@@ -71,9 +63,23 @@
 							if(data.isAdmin == "true") {
 								$(".topThemesOperate").text("操作");
 								getThemesInAdmin();
+								$("ul .pageNum").click(function(e) {
+									 e.preventDefault();
+									 pageNumPage = ($(this).text()-1) * 8;
+									// alert(pageNumPage);
+									 $("#tbody").empty();
+									 getThemesInAdmin();
+								});
 							} else {
 								$(".topThemesOperate").text("帖子类型");
 								getThemes();
+								$("ul .pageNum").click(function(e) {
+									 e.preventDefault();
+									 pageNumPage = ($(this).text()-1) * 8;
+									// alert(pageNumPage);
+									 $("#tbody").empty();
+									 getThemes();
+								});
 							}
 						}
 					},"json");
@@ -146,7 +152,7 @@
 										$.get('/secondaryMarket/DeleteTheme', {
 											themeId : event.data.index
 										}, function(data, textStatus) {
-											alert(data.isSuccess);
+											//alert(data.isSuccess);
 											if(textStatus == "success") {
 												if(data.isSuccess == "true") {
 													alert("删除成功！");

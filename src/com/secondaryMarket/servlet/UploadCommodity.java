@@ -91,7 +91,7 @@ public class UploadCommodity extends HttpServlet{
 	
 	private void writeTo(Part part,String fileName) throws IOException{
 		InputStream in = part.getInputStream();
-		OutputStream out = new FileOutputStream(new File("/root/Cuishibing/secondaryMarket/"+fileName));
+		OutputStream out = new FileOutputStream(new File("G:\\Eclipse\\Project\\EclipseEEProject\\seconaryMarket_IMG\\"+fileName));
 		byte[] buffer = new byte[1024];
 		int length = -1;
 		while ((length = in.read(buffer)) != -1) {

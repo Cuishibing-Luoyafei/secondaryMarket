@@ -72,9 +72,6 @@
 					status : 3
 				},function(data, textStatus) {
 					
-					/* 
-					publicMsgTheme":"测试了啊","publicMsgContent":"测试测试","publicMsgTime":"2016-05-03 23:42:48.0","publicMsgId":14}]
-					*/
 					if(textStatus == "success") {
 						//alert(data.publicMsgs[0].publicMsgContent);
 						if(data.publicMsgs != "") {

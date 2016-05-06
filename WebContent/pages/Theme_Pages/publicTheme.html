@@ -59,20 +59,20 @@
 			
 			
 				function checkNotNullValue() {
-					var themeTitle  = $("#themeTitle").val().trim();
-					var themeContent = $("#themeContent").val().trim();
-					var themeCommodityId = $("#themeCommodityId").val().trim();
-					if(themeTitle!="" && themeContent!="" && themeCommodityId!="") {
-						return true;
-					} else {
+					if($("#themeTitle").val().trim()=="" || $("#themeContent").val().trim()=="" || $("#themeCommodityId").val().trim()=="") {
 						alert("请填写完整");
 						return false;
+					} else {
+						return true;
 					}
 					
 				}
 				$(document).ready(function() {
 					$.get('/secondaryMarket/GetCommodity?isOne=false', {},function(data) {
 						if(data.isSuccess == "true") {
+							if(data.commodities==null) {
+								alert("请上传过物品后再进行发布");
+							}
 							var selectParent = $("#themeCommodityId");
 							for(var i = 0; i < data.commodities.length; i++) {
 								var addDiv = $('<option></option>');
