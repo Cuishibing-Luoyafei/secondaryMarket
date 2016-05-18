@@ -48,7 +48,7 @@ public class CommodityMysqlDao implements CommodityDao {
 			pstmt.setInt(1, commodityId);
 			rs = pstmt.executeQuery();
 			rs.next();
-System.out.println(commodityId + ":rs:" + rs.getInt(1));
+//System.out.println(commodityId + ":rs:" + rs.getInt(1));
 			commodity.setCommodityId(rs.getInt(1));
 			commodity.setCommodityName(rs.getString(2));
 			commodity.setCommodityCategary(rs.getString(3));
